@@ -25,7 +25,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws SQLException {
         JDBC.makeConnection();
-        UsersQueries.authenticateUser("admin", "admin");
+//        Locale.setDefault(new Locale("fr"));
         launch(args);
     }
 }

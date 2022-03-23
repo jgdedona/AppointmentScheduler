@@ -12,21 +12,31 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Sanitization;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.ZoneId;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        userTimeZoneLabel.setText(String.valueOf(TimeZone.getDefault().getID()));
+        if (Locale.getDefault().getLanguage() == "fr") {
+            loginLabel.setText("Connexion");
+            usernameTextField.setPromptText("Nom d'utilisateur");
+            passwordTextField.setPromptText("Mot de passe");
+            submitButton.setText("Soumettre");
+            exitButton.setText("Sortir");
+            timeZoneLabel.setText("Fuseau Horaire");
+            userTimeZoneLabel.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
+        }
     }
-
-    @FXML
-    private Label locationLabel;
 
     @FXML
     private Label loginLabel;
@@ -44,9 +54,6 @@ public class LoginController implements Initializable {
     private Label timeZoneLabel;
 
     @FXML
-    private Label userLocationLabel;
-
-    @FXML
     private Label userTimeZoneLabel;
 
     @FXML
@@ -62,6 +69,10 @@ public class LoginController implements Initializable {
         String userName = usernameTextField.getText();
         String password = passwordTextField.getText();
 
+        if (!(Sanitization.sanitizeLogin(userName, password))) {
+            return;
+        }
+
         if (UsersQueries.authenticateUser(userName, password)) {
             Stage stage;
             Parent scene;
@@ -70,6 +81,12 @@ public class LoginController implements Initializable {
             scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
+        } else {
+            if (Locale.getDefault().getLanguage() == "fr") {
+                Sanitization.displayAlert(2);
+            } else {
+                Sanitization.displayAlert(1);
+            }
         }
     }
 
