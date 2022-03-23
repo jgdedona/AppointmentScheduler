@@ -29,5 +29,9 @@ public class MainMenuController implements Initializable {
 
     }
 
+    @FXML
+    void returnToLogin(ActionEvent event) {
+
+    }
 
 }
