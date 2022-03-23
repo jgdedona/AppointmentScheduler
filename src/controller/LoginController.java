@@ -24,6 +24,7 @@ import java.util.TimeZone;
 
 public class LoginController implements Initializable {
 
+    /** Initializes all of the labels to the appropriate language. */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userTimeZoneLabel.setText(String.valueOf(TimeZone.getDefault().getID()));
@@ -34,7 +35,6 @@ public class LoginController implements Initializable {
             submitButton.setText("Soumettre");
             exitButton.setText("Sortir");
             timeZoneLabel.setText("Fuseau Horaire");
-            userTimeZoneLabel.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
         }
     }
 

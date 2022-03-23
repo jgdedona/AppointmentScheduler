@@ -6,8 +6,12 @@ import java.util.Locale;
 
 public class Sanitization {
 
-    public static boolean sanitizeLogin(String string1, String string2) {
-        if (string1.isEmpty() || string2.isEmpty()) {
+    /** Displays an alert if a username or password string is empty.
+     * @param username Username string
+     * @param password Password string
+     * @return true if both strings are valid, otherwise false. */
+    public static boolean sanitizeLogin(String username, String password) {
+        if (username.isEmpty() || password.isEmpty()) {
             if (Locale.getDefault().getLanguage() == "fr") {
                 displayAlert(4);
                 return false;
@@ -19,6 +23,8 @@ public class Sanitization {
         return true;
     }
 
+    /** Displays various alerts depending on the case called.
+     * @param alertType Identifies which alert to call*/
     public static void displayAlert(int alertType) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
