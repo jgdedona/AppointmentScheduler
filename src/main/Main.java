@@ -1,5 +1,6 @@
 package main;
 
+import DBHelper.CustomerQueries;
 import DBHelper.JDBC;
 import DBHelper.UsersQueries;
 import javafx.application.Application;
@@ -25,6 +26,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws SQLException {
         JDBC.makeConnection();
+        CustomerQueries.populateCustomers();
 //        Locale.setDefault(new Locale("fr"));
         launch(args);
     }

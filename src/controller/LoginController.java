@@ -41,6 +41,12 @@ public class LoginController implements Initializable {
         }
     }
 
+    /** Logs login attempts to a file named login_activity.txt.
+     * If the file does not exist, it is created. If the file already exists, it is appended to.
+     * @param userName Username used in login attempt
+     * @param password Password used in login attempt
+     * @param index Indicates which log message (success v. failure) to write
+     * @throws IOException from file access/write */
     private void logger(String userName, String password, int index) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String filename = "src/../login_activity.txt";

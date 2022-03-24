@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomersController">
+<AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomersController">
    <children>
-      <VBox prefHeight="607.0" prefWidth="600.0">
+      <VBox prefHeight="607.0" prefWidth="650.0">
          <children>
-            <HBox alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="600.0">
+            <HBox alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="650.0">
                <children>
                   <Label text="Customers">
                      <font>
@@ -24,7 +24,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="600.0">
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="650.0">
                <children>
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="456.0">
                      <children>
@@ -35,7 +35,7 @@
                      <children>
                         <HBox alignment="BOTTOM_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0">
                            <children>
-                              <TextField alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" onAction="#searchOrFilterCustomers" prefWidth="190.0" promptText="Search by Customer ID or Name">
+                              <TextField fx:id="custSearchText" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" onAction="#searchOrFilterCustomers" prefWidth="190.0" promptText="Search by Customer ID or Name">
                                  <HBox.margin>
                                     <Insets bottom="5.0" right="20.0" />
                                  </HBox.margin>
@@ -46,12 +46,12 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="450.0" prefWidth="913.0">
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="450.0" prefWidth="913.0">
                <children>
-                  <TableView fx:id="customersTableView" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="600.0">
+                  <TableView fx:id="customersTableView" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="625.0">
                     <columns>
                       <TableColumn fx:id="custIdCol" text="Customer ID" />
-                      <TableColumn fx:id="custNameCol" prefWidth="100.0" text="Customer Name" />
+                      <TableColumn fx:id="custNameCol" prefWidth="125.0" text="Customer Name" />
                         <TableColumn fx:id="addressCol" prefWidth="120.0" text="Address" />
                         <TableColumn fx:id="postalCodeCol" prefWidth="100.0" text="Postal Code" />
                         <TableColumn fx:id="phoneCol" prefWidth="100.0" text="Phone Number" />

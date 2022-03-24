@@ -18,38 +18,26 @@ public class User {
         this.password = password;
     }
 
-    /** Gets userId
-     * @return userId*/
     public int getUserId() {
         return userId;
     }
 
-    /** Sets userId
-     * @param userId*/
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    /** Gets userName
-     * @return userName*/
     public String getUserName() {
         return userName;
     }
 
-    /** Sets userName
-     * @param userName */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    /** Gets password
-     * @return  password*/
     public String getPassword() {
         return password;
     }
 
-    /** Sets password
-     * @param password */
     public void setPassword(String password) {
         this.password = password;
     }
