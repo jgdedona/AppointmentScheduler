@@ -39,7 +39,10 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     void addCustomer(ActionEvent event) {
-
+        String customerName = nameText.getText();
+        String address = addressText.getText();
+        String postalCode = postalCodeText.getText();
+        String phone = phoneText.getText();
     }
 
     @FXML
