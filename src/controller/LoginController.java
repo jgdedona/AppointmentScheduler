@@ -14,9 +14,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Sanitization;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -35,6 +38,26 @@ public class LoginController implements Initializable {
             submitButton.setText("Soumettre");
             exitButton.setText("Sortir");
             timeZoneLabel.setText("Fuseau Horaire");
+        }
+    }
+
+    private void logger(String userName, String password, int index) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String filename = "src/../login_activity.txt";
+        try {
+            FileWriter fwriter = new FileWriter(filename, true);
+            PrintWriter outputFile = new PrintWriter(fwriter);
+            switch(index) {
+                case 1:
+                    outputFile.println("Successful Login Attempt - Username: " + userName + " Password: " + password + " Timestamp: " + timestamp);
+                    outputFile.close();
+                case 2:
+                    outputFile.println("Failed Login Attempt - Username: " + userName + " Password: " + password + " Timestamp: " + timestamp);
+                    outputFile.close();
+            }
+            System.out.println("Attempt logged");
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getStackTrace());
         }
     }
 
@@ -74,6 +97,7 @@ public class LoginController implements Initializable {
         }
 
         if (UsersQueries.authenticateUser(userName, password)) {
+            logger(userName, password, 1);
             Stage stage;
             Parent scene;
 
@@ -82,6 +106,7 @@ public class LoginController implements Initializable {
             stage.setScene(new Scene(scene));
             stage.show();
         } else {
+            logger(userName, password, 2);
             if (Locale.getDefault().getLanguage() == "fr") {
                 Sanitization.displayAlert(2);
             } else {
