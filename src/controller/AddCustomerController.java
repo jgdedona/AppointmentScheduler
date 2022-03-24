@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import model.Country;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,7 +21,7 @@ public class AddCustomerController implements Initializable {
     private TextField addressText;
 
     @FXML
-    private ComboBox<?> countryCombo;
+    private ComboBox<Country> countryCombo;
 
     @FXML
     private TextField customerIdText;
