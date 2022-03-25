@@ -1,5 +1,6 @@
 package controller;
 
+import DBHelper.CustomerQueries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -49,8 +50,31 @@ public class ModifyCustomerController implements Initializable {
     private TextField postalCodeText;
 
     @FXML
-    void updateCustomer(ActionEvent event) {
+    void updateCustomer(ActionEvent event) throws IOException {
+        int customerId = Integer.parseInt(customerIdText.getText());
+        String name = nameText.getText();
+        String address = addressText.getText();
+        String postalCode = postalCodeText.getText();
+        String phone = phoneText.getText();
+        int divisionId = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
 
+        Customer updatedCustomer = new Customer(
+                customerId,
+                name,
+                address,
+                postalCode,
+                phone,
+                divisionId);
+        Customer.updateCustomer(updatedCustomer);
+        CustomerQueries.modifyCustomer(updatedCustomer);
+
+        Stage stage;
+        Parent scene;
+
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML

@@ -66,6 +66,28 @@ public class CustomerQueries {
         }
     }
 
+    public static void modifyCustomer(Customer customer) {
+        String queryString = "UPDATE customers " +
+                "SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? " +
+                "WHERE Customer_ID = ?";
+
+        try {
+            DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+            preparedStatement.setString(1, customer.getCustomerName());
+            preparedStatement.setString(2, customer.getAddress());
+            preparedStatement.setString(3, customer.getPostalCode());
+            preparedStatement.setString(4, customer.getPhone());
+            preparedStatement.setInt(5, customer.getDivisionId());
+            preparedStatement.setInt(6, customer.getCustomerId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     /**
      * Retrieves the last inserted entry in the customers table and updates the static allCustomers ObservableList.
      * @throws SQLException*/

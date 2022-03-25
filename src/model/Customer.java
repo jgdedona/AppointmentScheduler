@@ -118,5 +118,13 @@ public class Customer {
         return null;
     }
 
+    public static void updateCustomer(Customer customer) {
+        for (int i = 0; i < allCustomers.size(); i++) {
+            if (allCustomers.get(i).getCustomerId() == customer.getCustomerId()) {
+                allCustomers.set(i, customer);
+                return;
+            }
+        }
+    }
 
 }
