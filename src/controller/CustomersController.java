@@ -70,7 +70,8 @@ public class CustomersController implements Initializable {
 
     @FXML
     void deleteCustomer(ActionEvent event) {
-
+        Customer.removeCustomer(customersTableView.getSelectionModel().getSelectedItem());
+        CustomerQueries.removeCustomer(customersTableView.getSelectionModel().getSelectedItem());
     }
 
     @FXML
