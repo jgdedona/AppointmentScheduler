@@ -1,7 +1,7 @@
 package model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /** The Appointment class models a customer based on the appointment table found in the database. */
 public class Appointment {
@@ -11,23 +11,23 @@ public class Appointment {
     private String location;
     private String type;
     private LocalDate startDate;
-    private LocalDateTime startDateTime;
+    private LocalTime startTime;
     private LocalDate endDate;
-    private LocalDateTime endDateTime;
+    private LocalTime endTime;
     private int customerId;
     private int userId;
     private int contactId;
 
-    public Appointment(int appointmentId, String title, String description, String location, String type, LocalDate startDate, LocalDateTime startDateTime, LocalDate endDate, LocalDateTime endDateTime, int customerId, int userId, int contactId) {
+    public Appointment(int appointmentId, String title, String description, String location, String type, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, int customerId, int userId, int contactId) {
         this.appointmentId = appointmentId;
         this.title = title;
         this.description = description;
         this.location = location;
         this.type = type;
         this.startDate = startDate;
-        this.startDateTime = startDateTime;
+        this.startTime = startTime;
         this.endDate = endDate;
-        this.endDateTime = endDateTime;
+        this.endTime = endTime;
         this.customerId = customerId;
         this.userId = userId;
         this.contactId = contactId;
@@ -81,12 +81,12 @@ public class Appointment {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
     }
 
     public LocalDate getEndDate() {
@@ -97,12 +97,12 @@ public class Appointment {
         this.endDate = endDate;
     }
 
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
     public int getCustomerId() {

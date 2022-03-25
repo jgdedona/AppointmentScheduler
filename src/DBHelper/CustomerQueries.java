@@ -97,8 +97,10 @@ public class CustomerQueries {
         try {
             DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
             PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
+
             Customer.addCustomer(new Customer(
                     resultSet.getInt("Customer_ID"),
                     resultSet.getString("Customer_Name"),
