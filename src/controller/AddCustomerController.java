@@ -1,5 +1,8 @@
 package controller;
 
+import DBHelper.CustomerQueries;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +14,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Country;
+import model.Customer;
+import model.Division;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,7 +38,7 @@ public class AddCustomerController implements Initializable {
     private TextField customerIdText;
 
     @FXML
-    private ComboBox<?> divisionCombo;
+    private ComboBox<Division> divisionCombo;
 
     @FXML
     private TextField nameText;
@@ -45,11 +50,30 @@ public class AddCustomerController implements Initializable {
     private TextField postalCodeText;
 
     @FXML
-    void addCustomer(ActionEvent event) {
+    void addCustomer(ActionEvent event) throws IOException {
         String customerName = nameText.getText();
         String address = addressText.getText();
         String postalCode = postalCodeText.getText();
         String phone = phoneText.getText();
+        int divisionId = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
+
+        Customer addedCustomer = new Customer(
+                1, // Placeholder - The database will assign the proper ID
+                customerName,
+                address,
+                postalCode,
+                phone,
+                divisionId);
+        CustomerQueries.addCustomer(addedCustomer);
+        CustomerQueries.addInsertedCustomer();
+
+        Stage stage;
+        Parent scene;
+
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML
@@ -61,6 +85,20 @@ public class AddCustomerController implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+    }
+
+    @FXML
+    void fillDivisionCombo(ActionEvent event) {
+        ObservableList<Division> countryDivisions = FXCollections.observableArrayList();
+        Country selectedCountry = countryCombo.getSelectionModel().getSelectedItem();
+
+        for (Division division : Division.getAllDivisions()) {
+            if (selectedCountry.getCountryId() == division.getCountryId()) {
+                countryDivisions.add(division);
+            }
+        }
+
+        divisionCombo.setItems(countryDivisions);
     }
 
 }

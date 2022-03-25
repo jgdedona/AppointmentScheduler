@@ -1,5 +1,6 @@
 package model;
 
+import DBHelper.CustomerQueries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -116,5 +117,6 @@ public class Customer {
         }
         return null;
     }
+
 
 }

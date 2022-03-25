@@ -11,19 +11,20 @@ public class UsersQueries {
      * @param password Password to check
      * @return true if the userexists and the credentials are correct, else returns false
      * @throws SQLException from SELECT statement */
-    public static boolean authenticateUser(String userName, String password) throws SQLException {
+    public static boolean authenticateUser(String userName, String password) {
         String queryString = "SELECT * FROM users WHERE User_Name = ? AND Password = ?";
 
-        DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
-        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
-
-        preparedStatement.setString(1, userName);
-        preparedStatement.setString(2, password);
-
         try {
+            DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, password);
+
             ResultSet result = preparedStatement.executeQuery();
             return result.next();
         } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
             return false;
         }
     }

@@ -70,8 +70,8 @@ public class CustomersController implements Initializable {
 
     @FXML
     void deleteCustomer(ActionEvent event) {
-        Customer.removeCustomer(customersTableView.getSelectionModel().getSelectedItem());
         CustomerQueries.removeCustomer(customersTableView.getSelectionModel().getSelectedItem());
+        Customer.removeCustomer(customersTableView.getSelectionModel().getSelectedItem());
     }
 
     @FXML
@@ -86,7 +86,24 @@ public class CustomersController implements Initializable {
 
     @FXML
     void displayModifyCustomer(ActionEvent event) throws IOException {
-        displayScene(event, "/view/AddCustomer.fxml");
+        Stage stage;
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/ModifyCustomer.fxml"));
+        loader.load();
+
+        ModifyCustomerController MCController = loader.getController();
+        try {
+            MCController.sendCustomer(customersTableView.getSelectionModel().getSelectedItem());
+        } catch (NullPointerException e) {
+            System.out.println("Error: " + e.getMessage());
+            return;
+        }
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     /** Implements search functionality for customersTableView.

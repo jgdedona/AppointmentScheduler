@@ -47,6 +47,18 @@ public class Country {
         allCountries.remove(country);
     }
 
+    /** Returns a Country object from allCountries if the object's ID matches the supplied countryID.
+     * @param countryId Country ID to be checked
+     * @return Matching country if found, else null */
+    public static Country selectCountry(int countryId) {
+        for (Country country : allCountries) {
+            if (country.getCountryId() == countryId) {
+                return country;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return (this.getCountry());

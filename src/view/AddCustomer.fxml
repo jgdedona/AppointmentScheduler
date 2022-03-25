@@ -52,7 +52,7 @@
                         <Label text="Customer Name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Address" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ComboBox fx:id="countryCombo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="countryCombo" onAction="#fillDivisionCombo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
                         <ComboBox fx:id="divisionCombo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
                         <Label text="Phone Number" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="customerIdText" disable="true" promptText="Auto Generated" GridPane.columnIndex="2" />

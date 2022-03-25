@@ -23,7 +23,7 @@ public class CountryQueries {
                         result.getString("Country")));
             }
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getStackTrace());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

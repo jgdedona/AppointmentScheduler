@@ -63,7 +63,7 @@ public class LoginController implements Initializable {
             }
             System.out.println("Attempt logged");
         } catch (IOException e) {
-            System.out.println("Error: " + e.getStackTrace());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 

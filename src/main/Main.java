@@ -1,9 +1,6 @@
 package main;
 
-import DBHelper.CountryQueries;
-import DBHelper.CustomerQueries;
-import DBHelper.JDBC;
-import DBHelper.UsersQueries;
+import DBHelper.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,6 +26,7 @@ public class Main extends Application {
         JDBC.makeConnection();
         CustomerQueries.populateCustomers();
         CountryQueries.populateCountries();
+        DivisionQueries.populateDivisions();
 //        Locale.setDefault(new Locale("fr"));
         launch(args);
     }

@@ -52,7 +52,7 @@
                         <Label text="Customer Name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Address" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ComboBox fx:id="countryCombo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="countryCombo" onAction="#fillDivisionCombo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
                         <ComboBox fx:id="divisionCombo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
                         <Label text="Phone Number" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="customerIdText" disable="true" promptText="Auto Generated" GridPane.columnIndex="2" />
@@ -68,7 +68,7 @@
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCustomer" prefWidth="52.0" text="Save" />
+                  <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#updateCustomer" prefWidth="52.0" text="Save" />
                   <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#displayCustomerView" text="Cancel" />
                </children>
                <padding>

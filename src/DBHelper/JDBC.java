@@ -39,7 +39,7 @@ public class JDBC {
             connection.close();
             System.out.println("Connection closed!");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
