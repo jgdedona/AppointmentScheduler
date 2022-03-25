@@ -1,6 +1,7 @@
 package model;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.util.Locale;
@@ -8,6 +9,10 @@ import java.util.Locale;
 public class Sanitization {
 
     private static boolean isValid = true;
+
+    public static boolean getIsValid() {
+        return isValid;
+    }
 
     /**
      * Sets the static isValid boolean to true.
@@ -43,18 +48,18 @@ public class Sanitization {
     /**
      * Determines if a string is empty and displays an alert if so.
      * @param value The name string to be checked. */
-    public static void sanitizeString(String value) {
+    public static void sanitizeString(int alertIndex, String value) {
         if (value.isEmpty()) {
-//            displayAlert(1);
+            displayAlert(alertIndex);
             setIsValidFalse();
         }
     }
 
     /**
      * Determines if an integer entered in a text field entry is a valid int and displays an alert if not.
-     * @param intTxt The stock text field to be checked.
+     * @param intTxt The int text field to be checked.
      * @return int */
-    public static int sanitizeStock(TextField intTxt) {
+    public static int sanitizeInt(TextField intTxt) {
         try {
             int value = Integer.parseInt(intTxt.getText());
             if (value >= 0) {
@@ -96,6 +101,36 @@ public class Sanitization {
             case 4:
                 alert.setHeaderText("Le champ Nom d'utilisateur ou mot de passe est vide");
                 alert.setContentText("Tous les champs doivent contenir des données valides");
+                alert.showAndWait();
+                break;
+            case 5:
+                alert.setHeaderText("Empty Name Text Field");
+                alert.setContentText("All text fields must contain data");
+                alert.showAndWait();
+                break;
+            case 6:
+                alert.setHeaderText("Empty Address Text Field");
+                alert.setContentText("All text fields must contain data");
+                alert.showAndWait();
+                break;
+            case 7:
+                alert.setHeaderText("Empty Postal Code Text Field");
+                alert.setContentText("All text fields must contain data");
+                alert.showAndWait();
+                break;
+            case 8:
+                alert.setHeaderText("Empty Phone Number Text Field");
+                alert.setContentText("All text fields must contain data");
+                alert.showAndWait();
+                break;
+            case 9:
+                alert.setHeaderText("Must Select a Country");
+                alert.setContentText("Please select a country from the drop down list");
+                alert.showAndWait();
+                break;
+            case 10:
+                alert.setHeaderText("Must Select a Division");
+                alert.setContentText("Please select a division from the drop down list");
                 alert.showAndWait();
                 break;
         }

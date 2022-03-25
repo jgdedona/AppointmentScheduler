@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import model.Country;
 import model.Customer;
 import model.Division;
+import model.Sanitization;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,12 +52,35 @@ public class ModifyCustomerController implements Initializable {
 
     @FXML
     void updateCustomer(ActionEvent event) throws IOException {
+        Sanitization.setIsValidTrue();
+
         int customerId = Integer.parseInt(customerIdText.getText());
         String name = nameText.getText();
         String address = addressText.getText();
         String postalCode = postalCodeText.getText();
         String phone = phoneText.getText();
-        int divisionId = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
+        int divisionId = 0;
+
+        if (countryCombo.getSelectionModel().getSelectedItem() == null) {
+            Sanitization.displayAlert(9);
+            Sanitization.setIsValidFalse();
+        }
+
+        try {
+            divisionId = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
+        } catch (NullPointerException e) {
+            Sanitization.displayAlert(10);
+            Sanitization.setIsValidFalse();
+        }
+
+        Sanitization.sanitizeString(5, name);
+        Sanitization.sanitizeString(6, address);
+        Sanitization.sanitizeString(7, postalCode);
+        Sanitization.sanitizeString(8, phone);
+
+        if (!(Sanitization.getIsValid())) {
+            return;
+        }
 
         Customer updatedCustomer = new Customer(
                 customerId,

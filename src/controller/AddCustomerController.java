@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import model.Country;
 import model.Customer;
 import model.Division;
+import model.Sanitization;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,11 +52,34 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     void addCustomer(ActionEvent event) throws IOException {
+        Sanitization.setIsValidTrue();
+
         String customerName = nameText.getText();
         String address = addressText.getText();
         String postalCode = postalCodeText.getText();
         String phone = phoneText.getText();
-        int divisionId = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
+        int divisionId = 0;
+
+        if (countryCombo.getSelectionModel().getSelectedItem() == null) {
+            Sanitization.displayAlert(9);
+            Sanitization.setIsValidFalse();
+        }
+
+        try {
+            divisionId = divisionCombo.getSelectionModel().getSelectedItem().getDivisionID();
+        } catch (NullPointerException e) {
+            Sanitization.displayAlert(10);
+            Sanitization.setIsValidFalse();
+        }
+
+        Sanitization.sanitizeString(5, customerName);
+        Sanitization.sanitizeString(6, address);
+        Sanitization.sanitizeString(7, postalCode);
+        Sanitization.sanitizeString(8, phone);
+
+        if (!(Sanitization.getIsValid())) {
+            return;
+        }
 
         Customer addedCustomer = new Customer(
                 1, // Placeholder - The database will assign the proper ID
@@ -74,6 +98,8 @@ public class AddCustomerController implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+
+
     }
 
     @FXML
