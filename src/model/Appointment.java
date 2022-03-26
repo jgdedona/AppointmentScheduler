@@ -163,11 +163,41 @@ public class Appointment {
         this.contactId = contactId;
     }
 
+    /**
+     * Adds an Appointment object to the allAppointments ObservableList.
+     * @param appointment Appointment object to be added */
     public static void addAppointment(Appointment appointment) {
         allAppointments.add(appointment);
     }
 
+    /**
+     * Removes an Appointment object from the allAppointments ObservableList.
+     * @param appointment Appointment object to be removed */
     public static void removeAppointment(Appointment appointment) {
         allAppointments.remove(appointment);
     }
+
+    public static Appointment lookupAppointment(int appointmentId, ObservableList<Appointment> appointments) {
+        for (Appointment appointment : appointments) {
+            if (appointment.getAppointmentId() == appointmentId) {
+                return appointment;
+            }
+        }
+        return null;
+    }
+
+    public static ObservableList<Appointment> lookupAppointment(String title, ObservableList<Appointment> appointments) {
+        ObservableList<Appointment> filteredAppointments = FXCollections.observableArrayList();
+        for (Appointment appointment : appointments) {
+            if (appointment.getTitle().contains(title)) {
+                filteredAppointments.add(appointment);
+            }
+        }
+        if (filteredAppointments.size() > 0) {
+            return filteredAppointments;
+        } else {
+            return appointments;
+        }
+    }
+
 }

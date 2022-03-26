@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
@@ -38,8 +35,9 @@ public class AppointmentsController implements Initializable {
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
     }
 
-    Stage stage;
-    Parent scene;
+    ObservableList<Appointment> apptByMonth = FXCollections.observableArrayList();
+    ObservableList<Appointment> apptByWeek = FXCollections.observableArrayList();
+
 
     @FXML
     private TableColumn<Appointment, Integer> appIdCol;
@@ -78,13 +76,31 @@ public class AppointmentsController implements Initializable {
     private ToggleGroup viewBy;
 
     @FXML
+    private TextField searchText;
+
+    @FXML
+    private RadioButton showAllRBtn;
+
+    @FXML
+    private RadioButton showMonthRBtn;
+
+    @FXML
+    private RadioButton showWeekRBtn;
+
+    @FXML
     void deleteAppointment(ActionEvent event) {
 
     }
 
     @FXML
-    void displayAddAppointment(ActionEvent event) {
+    void displayAddAppointment(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent scene;
 
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML
@@ -94,7 +110,7 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void displayByMonth(ActionEvent event) {
-        ObservableList<Appointment> apptByMonth = FXCollections.observableArrayList();
+        apptByMonth.clear();
         for (Appointment appointment : Appointment.getAllAppointments()) {
             if (appointment.getStartDateTime().isAfter(LocalDateTime.now())
             && appointment.getStartDateTime().isBefore(LocalDateTime.now().plusDays(30))) {
@@ -106,7 +122,7 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void displayByWeek(ActionEvent event) {
-        ObservableList<Appointment> apptByWeek = FXCollections.observableArrayList();
+        apptByWeek.clear();
         for (Appointment appointment : Appointment.getAllAppointments()) {
             if (appointment.getStartDateTime().isAfter(LocalDateTime.now())
                     && appointment.getStartDateTime().isBefore(LocalDateTime.now().plusDays(7))) {
@@ -118,6 +134,9 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void displayMainMenu(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent scene;
+
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
         stage.setScene(new Scene(scene));
@@ -125,13 +144,29 @@ public class AppointmentsController implements Initializable {
     }
 
     @FXML
-    void displayModifyAppointment(ActionEvent event) {
+    void displayModifyAppointment(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent scene;
 
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/ModifyAppointment.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML
     void searchOrFilterAppointments(ActionEvent event) {
-
+        try {
+            appointmentsTableView.getSelectionModel().select(Appointment.lookupAppointment(Integer.parseInt(searchText.getText()), appointmentsTableView.getItems()));
+        } catch (NumberFormatException e) {
+            if (showAllRBtn.isSelected()) {
+                appointmentsTableView.setItems(Appointment.lookupAppointment(searchText.getText(), Appointment.getAllAppointments()));
+            } else if (showWeekRBtn.isSelected()) {
+                appointmentsTableView.setItems(Appointment.lookupAppointment(searchText.getText(), apptByWeek));
+            } else if (showMonthRBtn.isSelected()) {
+                appointmentsTableView.setItems(Appointment.lookupAppointment(searchText.getText(), apptByMonth));
+            }
+        }
     }
 
 }

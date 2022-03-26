@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="591.0" prefWidth="913.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentsController">
    <children>
       <VBox prefHeight="607.0" prefWidth="913.0">
@@ -33,7 +32,7 @@
                      <children>
                         <HBox alignment="BOTTOM_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="456.0" spacing="40.0">
                            <children>
-                              <RadioButton mnemonicParsing="false" onAction="#displayAll" text="All">
+                              <RadioButton fx:id="showAllRBtn" mnemonicParsing="false" onAction="#displayAll" selected="true" text="All">
                                  <HBox.margin>
                                     <Insets bottom="5.0" />
                                  </HBox.margin>
@@ -41,12 +40,12 @@
                                     <ToggleGroup fx:id="viewBy" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" onAction="#displayByMonth" text="Month" toggleGroup="$viewBy">
+                              <RadioButton fx:id="showMonthRBtn" mnemonicParsing="false" onAction="#displayByMonth" text="Month" toggleGroup="$viewBy">
                                  <HBox.margin>
                                     <Insets bottom="5.0" />
                                  </HBox.margin>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" onAction="#displayByWeek" text="Week" toggleGroup="$viewBy">
+                              <RadioButton fx:id="showWeekRBtn" mnemonicParsing="false" onAction="#displayByWeek" text="Week" toggleGroup="$viewBy">
                                  <HBox.margin>
                                     <Insets bottom="5.0" />
                                  </HBox.margin>
@@ -59,7 +58,7 @@
                      <children>
                         <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <TextField maxWidth="-Infinity" minWidth="-Infinity" onAction="#searchOrFilterAppointments" prefWidth="200.0" promptText="Search by Appointment ID or Title">
+                              <TextField fx:id="searchText" maxWidth="-Infinity" minWidth="-Infinity" onAction="#searchOrFilterAppointments" prefWidth="200.0" promptText="Search by Appointment ID or Title">
                                  <HBox.margin>
                                     <Insets bottom="5.0" right="20.0" />
                                  </HBox.margin>
