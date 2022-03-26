@@ -1,5 +1,6 @@
 package controller;
 
+import DBHelper.AppointmentQueries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -89,7 +90,8 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void deleteAppointment(ActionEvent event) {
-
+        AppointmentQueries.removeAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
+        Appointment.removeAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
     }
 
     @FXML

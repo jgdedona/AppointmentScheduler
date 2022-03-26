@@ -54,4 +54,18 @@ public class AppointmentQueries {
         }
     }
 
+    public static void removeAppointment(Appointment appointment) {
+        String queryString = "DELETE FROM appointments WHERE Appointment_ID = ?";
+
+        try {
+            DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+            preparedStatement.setInt(1, appointment.getAppointmentId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
 }
