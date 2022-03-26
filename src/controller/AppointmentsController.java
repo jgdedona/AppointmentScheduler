@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,54 +12,67 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class AppointmentsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
+        appointmentsTableView.setItems(Appointment.getAllAppointments());
+        appIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+        customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        userIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        contactCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
     }
 
     Stage stage;
     Parent scene;
 
     @FXML
-    private TableColumn<?, ?> appIdCol;
+    private TableColumn<Appointment, Integer> appIdCol;
 
     @FXML
-    private TableView<?> appointmentsTableView;
+    private TableView<Appointment> appointmentsTableView;
 
     @FXML
-    private TableColumn<?, ?> contactCol;
+    private TableColumn<Appointment, Integer> contactCol;
 
     @FXML
-    private TableColumn<?, ?> customerIdCol;
+    private TableColumn<Appointment, Integer> customerIdCol;
 
     @FXML
-    private TableColumn<?, ?> descriptionCol;
+    private TableColumn<Appointment, String> descriptionCol;
 
     @FXML
-    private TableColumn<?, ?> endCol;
+    private TableColumn<Appointment, LocalDateTime> endCol;
 
     @FXML
-    private TableColumn<?, ?> locationCol;
+    private TableColumn<Appointment, String> locationCol;
 
     @FXML
-    private TableColumn<?, ?> startCol;
+    private TableColumn<Appointment, LocalDateTime> startCol;
 
     @FXML
-    private TableColumn<?, ?> titleCol;
+    private TableColumn<Appointment, String> titleCol;
 
     @FXML
-    private TableColumn<?, ?> typeCol;
+    private TableColumn<Appointment, String> typeCol;
 
     @FXML
-    private TableColumn<?, ?> userIdCol;
+    private TableColumn<Appointment, Integer> userIdCol;
 
     @FXML
     private ToggleGroup viewBy;
@@ -74,17 +89,31 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void displayAll(ActionEvent event) {
-
+        appointmentsTableView.setItems(Appointment.getAllAppointments());
     }
 
     @FXML
     void displayByMonth(ActionEvent event) {
-
+        ObservableList<Appointment> apptByMonth = FXCollections.observableArrayList();
+        for (Appointment appointment : Appointment.getAllAppointments()) {
+            if (appointment.getStartDateTime().isAfter(LocalDateTime.now())
+            && appointment.getStartDateTime().isBefore(LocalDateTime.now().plusDays(30))) {
+                apptByMonth.add(appointment);
+            }
+        }
+        appointmentsTableView.setItems(apptByMonth);
     }
 
     @FXML
     void displayByWeek(ActionEvent event) {
-
+        ObservableList<Appointment> apptByWeek = FXCollections.observableArrayList();
+        for (Appointment appointment : Appointment.getAllAppointments()) {
+            if (appointment.getStartDateTime().isAfter(LocalDateTime.now())
+                    && appointment.getStartDateTime().isBefore(LocalDateTime.now().plusDays(7))) {
+                apptByWeek.add(appointment);
+            }
+        }
+        appointmentsTableView.setItems(apptByWeek);
     }
 
     @FXML

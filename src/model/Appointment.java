@@ -1,6 +1,10 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /** The Appointment class models a customer based on the appointment table found in the database. */
@@ -10,27 +14,57 @@ public class Appointment {
     private String description;
     private String location;
     private String type;
+    private LocalDateTime startDateTime;
     private LocalDate startDate;
     private LocalTime startTime;
+    private LocalDateTime endDateTime;
     private LocalDate endDate;
     private LocalTime endTime;
     private int customerId;
     private int userId;
     private int contactId;
 
-    public Appointment(int appointmentId, String title, String description, String location, String type, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, int customerId, int userId, int contactId) {
+    public Appointment(int appointmentId, String title, String description, String location, String type, LocalDateTime startDateTime, LocalDate startDate, LocalTime startTime, LocalDateTime endDateTime, LocalDate endDate, LocalTime endTime, int customerId, int userId, int contactId) {
         this.appointmentId = appointmentId;
         this.title = title;
         this.description = description;
         this.location = location;
         this.type = type;
+        this.startDateTime = startDateTime;
         this.startDate = startDate;
         this.startTime = startTime;
+        this.endDateTime = endDateTime;
         this.endDate = endDate;
         this.endTime = endTime;
         this.customerId = customerId;
         this.userId = userId;
         this.contactId = contactId;
+    }
+
+    private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+
+    public static ObservableList<Appointment> getAllAppointments() {
+        return allAppointments;
+    }
+
+    public static void setAllAppointments(ObservableList<Appointment> allAppointments) {
+        Appointment.allAppointments = allAppointments;
+    }
+
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
+    }
+
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
     }
 
     public int getAppointmentId() {
@@ -127,5 +161,13 @@ public class Appointment {
 
     public void setContactId(int contactId) {
         this.contactId = contactId;
+    }
+
+    public static void addAppointment(Appointment appointment) {
+        allAppointments.add(appointment);
+    }
+
+    public static void removeAppointment(Appointment appointment) {
+        allAppointments.remove(appointment);
     }
 }

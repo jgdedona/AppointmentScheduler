@@ -6,8 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import model.Customer;
 
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class AddAppointmentController implements Initializable {
@@ -24,7 +26,7 @@ public class AddAppointmentController implements Initializable {
     private ComboBox<?> contactCombo;
 
     @FXML
-    private ComboBox<?> customerIdCombo;
+    private ComboBox<Customer> customerIdCombo;
 
     @FXML
     private TextField descriptionText;

@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Locale;
 
 public class Main extends Application {
@@ -28,7 +30,7 @@ public class Main extends Application {
         CustomerQueries.populateCustomers();
         CountryQueries.populateCountries();
         DivisionQueries.populateDivisions();
-        System.out.println(AppointmentQueries.getStartTime());
+        AppointmentQueries.populateAppointments();
 //        Locale.setDefault(new Locale("fr"));
         launch(args);
     }
