@@ -9,7 +9,7 @@ public class User {
     private String userName;
     private String password;
 
-//    private static ObservableList allUsers = FXCollections.observableArrayList();
+    private static ObservableList allUsers = FXCollections.observableArrayList();
 
     /** User constructor */
     public User(int userId, String userName, String password) {
@@ -42,21 +42,26 @@ public class User {
         this.password = password;
     }
 
-//    /** Gets the static ObservableList allUsers
-//     * @return allUsers*/
-//    public static ObservableList getAllUsers() {
-//        return allUsers;
-//    }
-//
-//    /** Sets the static ObservableList allUsers
-//     * @param allUsers */
-//    public static void setAllUsers(ObservableList allUsers) {
-//        User.allUsers = allUsers;
-//    }
-//
-//    /** Adds a new user to the allUsers ObservableList
-//     * @param newUser */
-//    public static void addUser(User newUser) {
-//        allUsers.add(newUser);
-//    }
+    /** Gets the static ObservableList allUsers
+     * @return allUsers*/
+    public static ObservableList getAllUsers() {
+        return allUsers;
+    }
+
+    /** Sets the static ObservableList allUsers
+     * @param allUsers */
+    public static void setAllUsers(ObservableList allUsers) {
+        User.allUsers = allUsers;
+    }
+
+    /** Adds a new user to the allUsers ObservableList
+     * @param newUser */
+    public static void addUser(User newUser) {
+        allUsers.add(newUser);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(userId);
+    }
 }

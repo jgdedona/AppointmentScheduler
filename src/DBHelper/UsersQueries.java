@@ -1,5 +1,7 @@
 package DBHelper;
 
+import model.User;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,4 +30,26 @@ public class UsersQueries {
             return false;
         }
     }
+
+    public static void populateUsers() {
+        String queryString = "SELECT * FROM users";
+
+        try {
+            DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                User.addUser(new User(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        ""
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
 }

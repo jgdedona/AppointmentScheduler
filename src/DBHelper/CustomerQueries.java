@@ -16,15 +16,15 @@ public class CustomerQueries {
         try {
             DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
             PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
-            ResultSet result = preparedStatement.executeQuery();
-            while (result.next()) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
                 Customer.addCustomer(new Customer(
-                        result.getInt("Customer_ID"),
-                        result.getString("Customer_Name"),
-                        result.getString("Address"),
-                        result.getString("Postal_Code"),
-                        result.getString("Phone"),
-                        result.getInt("Division_ID")));
+                        resultSet.getInt("Customer_ID"),
+                        resultSet.getString("Customer_Name"),
+                        resultSet.getString("Address"),
+                        resultSet.getString("Postal_Code"),
+                        resultSet.getString("Phone"),
+                        resultSet.getInt("Division_ID")));
             }
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());

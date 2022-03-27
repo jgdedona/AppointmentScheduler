@@ -4,6 +4,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Locale;
 
 public class Sanitization {
@@ -76,6 +80,31 @@ public class Sanitization {
         }
     }
 
+    public static void checkBusinessHours(LocalDateTime startLdt, LocalDateTime endLdt) {
+        ZonedDateTime startZdt = startLdt.atZone(ZoneId.systemDefault());
+        ZonedDateTime startTargetZdt = startZdt.withZoneSameInstant(ZoneId.of("America/New_York"));
+        LocalDateTime startTargetLdt = startTargetZdt.toLocalDateTime();
+        LocalTime startTime = startTargetLdt.toLocalTime();
+
+        ZonedDateTime endZdt = endLdt.atZone(ZoneId.systemDefault());
+        ZonedDateTime endTargetZdt = endZdt.withZoneSameInstant(ZoneId.of("America/New_York"));
+        LocalDateTime endTargetLdt = endTargetZdt.toLocalDateTime();
+        LocalTime endTime = endTargetLdt.toLocalTime();
+
+
+        if (startTime.isBefore(LocalTime.of(8, 00))
+                || startTime.isAfter(LocalTime.of(22, 00))) {
+            displayAlert(11);
+            setIsValidFalse();
+        }
+
+        if (endTime.isBefore(LocalTime.of(8, 00))
+                || endTime.isAfter(LocalTime.of(22, 00))) {
+            displayAlert(12);
+            setIsValidFalse();
+        }
+    }
+
     /** Displays various alerts depending on the case called.
      * @param alertType Identifies which alert to call*/
     public static void displayAlert(int alertType) {
@@ -131,6 +160,16 @@ public class Sanitization {
             case 10:
                 alert.setHeaderText("Must Select a Division");
                 alert.setContentText("Please select a division from the drop down list");
+                alert.showAndWait();
+                break;
+            case 11:
+                alert.setHeaderText("Appointments must be within the hours of 8AM - 10PM EST");
+                alert.setContentText("Please select a valid start time");
+                alert.showAndWait();
+                break;
+            case 12:
+                alert.setHeaderText("Appointments must be within the hours of 8AM - 10PM EST");
+                alert.setContentText("Please select a valid end time");
                 alert.showAndWait();
                 break;
         }

@@ -6,23 +6,10 @@ import model.Customer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class AppointmentQueries {
-
-    // TEST
-    public static LocalDateTime getStartTime() throws SQLException {
-        String queryString = "SELECT start FROM appointments";
-
-        DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
-        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-
-        LocalDateTime ldt = resultSet.getTimestamp("start").toLocalDateTime();
-        return ldt;
-    } // END TEST
 
     public static void populateAppointments() {
         String queryString = "SELECT * FROM appointments";
@@ -62,6 +49,31 @@ public class AppointmentQueries {
             PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
 
             preparedStatement.setInt(1, appointment.getAppointmentId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void addAppointment(Appointment appointment) {
+        String queryString = "INSERT INTO appointments "
+                + "(Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+            preparedStatement.setString(1, appointment.getTitle());
+            preparedStatement.setString(2, appointment.getDescription());
+            preparedStatement.setString(3, appointment.getLocation());
+            preparedStatement.setString(4, appointment.getType());
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(appointment.getStartDateTime()));
+            preparedStatement.setTimestamp(6, Timestamp.valueOf(appointment.getEndDateTime()));
+            preparedStatement.setInt(7, appointment.getCustomerId());
+            preparedStatement.setInt(8, appointment.getUserId());
+            preparedStatement.setInt(9, appointment.getContactId());
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
