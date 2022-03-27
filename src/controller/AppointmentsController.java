@@ -16,6 +16,7 @@ import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
@@ -114,20 +115,26 @@ public class AppointmentsController implements Initializable {
     void displayByMonth(ActionEvent event) {
         apptByMonth.clear();
         for (Appointment appointment : Appointment.getAllAppointments()) {
-            if (appointment.getStartDateTime().isAfter(LocalDateTime.now())
-            && appointment.getStartDateTime().isBefore(LocalDateTime.now().plusDays(30))) {
+            if (appointment.getStartDateTime().getMonth() == LocalDateTime.now().getMonth()) {
                 apptByMonth.add(appointment);
             }
         }
         appointmentsTableView.setItems(apptByMonth);
     }
 
+    /**
+     * Displays any appointments scheduled in the current week.
+     * Sunday is considered the first day of the week in this context, so the week is defined as Sunday-Saturday.  */
     @FXML
-    void displayByWeek(ActionEvent event) {
+    void displayByWeek() {
         apptByWeek.clear();
+        LocalDateTime ldt = LocalDateTime.now();
+        while (ldt.getDayOfWeek() != DayOfWeek.SUNDAY) {
+            ldt = ldt.minusDays(1);
+        }
         for (Appointment appointment : Appointment.getAllAppointments()) {
-            if (appointment.getStartDateTime().isAfter(LocalDateTime.now())
-                    && appointment.getStartDateTime().isBefore(LocalDateTime.now().plusDays(7))) {
+            if (appointment.getStartDateTime().isAfter(ldt.withHour(00).withMinute(00).withSecond(00))
+                    && appointment.getStartDateTime().isBefore(ldt.plusDays(6).withHour(23).withMinute(59).withSecond(59))) {
                 apptByWeek.add(appointment);
             }
         }

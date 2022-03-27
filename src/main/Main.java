@@ -31,6 +31,7 @@ public class Main extends Application {
         CountryQueries.populateCountries();
         DivisionQueries.populateDivisions();
         AppointmentQueries.populateAppointments();
+        System.out.println(LocalDateTime.now().withHour(00).withMinute(00).withSecond(00));
 //        Locale.setDefault(new Locale("fr"));
         launch(args);
     }
