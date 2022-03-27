@@ -27,11 +27,7 @@ public class AppointmentQueries {
                         resultSet.getString(4),
                         resultSet.getString(5),
                         resultSet.getTimestamp(6).toLocalDateTime(),
-                        resultSet.getTimestamp(6).toLocalDateTime().toLocalDate(),
-                        resultSet.getTimestamp(6).toLocalDateTime().toLocalTime(),
                         resultSet.getTimestamp(6).toLocalDateTime(),
-                        resultSet.getTimestamp(7).toLocalDateTime().toLocalDate(),
-                        resultSet.getTimestamp(7).toLocalDateTime().toLocalTime(),
                         resultSet.getInt(12),
                         resultSet.getInt(13),
                         resultSet.getInt(14)));

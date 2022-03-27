@@ -15,27 +15,19 @@ public class Appointment {
     private String location;
     private String type;
     private LocalDateTime startDateTime;
-    private LocalDate startDate;
-    private LocalTime startTime;
     private LocalDateTime endDateTime;
-    private LocalDate endDate;
-    private LocalTime endTime;
     private int customerId;
     private int userId;
     private int contactId;
 
-    public Appointment(int appointmentId, String title, String description, String location, String type, LocalDateTime startDateTime, LocalDate startDate, LocalTime startTime, LocalDateTime endDateTime, LocalDate endDate, LocalTime endTime, int customerId, int userId, int contactId) {
+    public Appointment(int appointmentId, String title, String description, String location, String type, LocalDateTime startDateTime, LocalDateTime endDateTime, int customerId, int userId, int contactId) {
         this.appointmentId = appointmentId;
         this.title = title;
         this.description = description;
         this.location = location;
         this.type = type;
         this.startDateTime = startDateTime;
-        this.startDate = startDate;
-        this.startTime = startTime;
         this.endDateTime = endDateTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
         this.customerId = customerId;
         this.userId = userId;
         this.contactId = contactId;
@@ -105,38 +97,6 @@ public class Appointment {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
     }
 
     public int getCustomerId() {

@@ -4,10 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.Locale;
 
 public class Sanitization {
@@ -85,12 +82,13 @@ public class Sanitization {
         ZonedDateTime startTargetZdt = startZdt.withZoneSameInstant(ZoneId.of("America/New_York"));
         LocalDateTime startTargetLdt = startTargetZdt.toLocalDateTime();
         LocalTime startTime = startTargetLdt.toLocalTime();
+        LocalDate startDate = startTargetLdt.toLocalDate();
 
         ZonedDateTime endZdt = endLdt.atZone(ZoneId.systemDefault());
         ZonedDateTime endTargetZdt = endZdt.withZoneSameInstant(ZoneId.of("America/New_York"));
         LocalDateTime endTargetLdt = endTargetZdt.toLocalDateTime();
         LocalTime endTime = endTargetLdt.toLocalTime();
-
+        LocalDate endDate = endTargetLdt.toLocalDate();
 
         if (startTime.isBefore(LocalTime.of(8, 00))
                 || startTime.isAfter(LocalTime.of(22, 00))) {
@@ -101,6 +99,16 @@ public class Sanitization {
         if (endTime.isBefore(LocalTime.of(8, 00))
                 || endTime.isAfter(LocalTime.of(22, 00))) {
             displayAlert(12);
+            setIsValidFalse();
+        }
+
+        if (startTime.isAfter(endTime) || startTime.equals(endTime)) {
+            displayAlert(17);
+            setIsValidFalse();
+        }
+
+        if (!(startDate.equals(endDate))) {
+            displayAlert(16);
             setIsValidFalse();
         }
     }
@@ -170,6 +178,31 @@ public class Sanitization {
             case 12:
                 alert.setHeaderText("Appointments must be within the hours of 8AM - 10PM EST");
                 alert.setContentText("Please select a valid end time");
+                alert.showAndWait();
+                break;
+            case 13:
+                alert.setHeaderText("Empty Title Text Field");
+                alert.setContentText("All text fields must contain data");
+                alert.showAndWait();
+                break;
+            case 14:
+                alert.setHeaderText("Empty Description Text Field");
+                alert.setContentText("All text fields must contain data");
+                alert.showAndWait();
+                break;
+            case 15:
+                alert.setHeaderText("Empty Location Text Field");
+                alert.setContentText("All text fields must contain data");
+                alert.showAndWait();
+                break;
+            case 16:
+                alert.setHeaderText("Invalid start and end dates");
+                alert.setContentText("Start and end dates must be on the same day");
+                alert.showAndWait();
+                break;
+            case 17:
+                alert.setHeaderText("Invalid start and end times");
+                alert.setContentText("Start time must be before end time");
                 alert.showAndWait();
                 break;
         }

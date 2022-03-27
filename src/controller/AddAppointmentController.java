@@ -15,10 +15,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Contact;
 import model.Customer;
+import model.Sanitization;
 import model.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
@@ -85,7 +88,23 @@ public class AddAppointmentController implements Initializable {
 
     @FXML
     void addAppointment(ActionEvent event) {
+        Sanitization.setIsValidTrue();
 
+        int appointmentId = 0; // Placeholder. Database will provide the appropriate appointmentId.
+        String title = titleText.getText();
+        String description = descriptionText.getText();
+        String location = locationText.getText();
+        String type = typeCombo.getSelectionModel().getSelectedItem();
+        LocalDateTime startDateTime = LocalDateTime.of(startDateChooser.getValue(), startTimeCombo.getSelectionModel().getSelectedItem());
+        LocalDateTime endDateTime = LocalDateTime.of(endDateChooser.getValue(), endTimeCombo.getSelectionModel().getSelectedItem());
+        int customerId = customerIdCombo.getSelectionModel().getSelectedItem().getCustomerId();
+        int userId = userIdCombo.getSelectionModel().getSelectedItem().getUserId();
+        int contactId = contactCombo.getSelectionModel().getSelectedItem().getContactId();
+
+        Sanitization.sanitizeString(13, title);
+        Sanitization.sanitizeString(14, description);
+        Sanitization.sanitizeString(15, location);
+        Sanitization.checkBusinessHours(startDateTime, endDateTime);
     }
 
     @FXML
