@@ -150,6 +150,12 @@ public class Sanitization {
         alert.showAndWait();
     }
 
+    public static void appointmentNotice() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Appointment Notice");
+
+    }
+
     /** Displays various alerts depending on the case called.
      * @param alertType Identifies which alert to call*/
     public static void displayAlert(int alertType) {

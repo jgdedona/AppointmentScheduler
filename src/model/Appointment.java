@@ -2,10 +2,12 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 
 /** The Appointment class models a customer based on the appointment table found in the database. */
 public class Appointment {
@@ -176,6 +178,34 @@ public class Appointment {
             }
         }
         return false;
+    }
+
+    public static void userHasAppointmentWithinFifteen(int userId) {
+        boolean appointmentFound = false;
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Appointment Notice");
+
+        for (Appointment appointment : allAppointments) {
+            if (appointment.getUserId() == userId
+                    && appointment.getStartDateTime().isAfter(LocalDateTime.now())
+                    && appointment.getStartDateTime().isBefore(LocalDateTime.now().plusMinutes(15))) {
+                alert.setHeaderText("Appointment begins within 15 minutes");
+                alert.setContentText("Appointment ID: " + appointment.getAppointmentId()
+                        + "\nDate: " + appointment.getStartDateTime().toLocalDate()
+                        + "\nStart Time " + appointment.getStartDateTime().toLocalTime() + " " + ZoneId.systemDefault());
+                alert.showAndWait();
+                appointmentFound = true;
+            }
+        }
+
+        if (appointmentFound == true) {
+            return;
+        } else {
+            alert.setHeaderText("No appointments within the next 15 minutes");
+            alert.setContentText("There are no upcoming appointments");
+            alert.showAndWait();
+        }
     }
 
 }

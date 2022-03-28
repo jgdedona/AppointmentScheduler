@@ -69,6 +69,15 @@ public class User {
         return null;
     }
 
+    public static User findUserByUserName(String userName) {
+        for (User user : allUsers) {
+            if (user.getUserName().equals(userName)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return String.valueOf(userId);

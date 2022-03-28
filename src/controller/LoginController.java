@@ -12,7 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Appointment;
 import model.Sanitization;
+import model.User;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -104,6 +106,9 @@ public class LoginController implements Initializable {
 
         if (UsersQueries.authenticateUser(userName, password)) {
             logger(userName, password, 1);
+
+            Appointment.userHasAppointmentWithinFifteen(User.findUserByUserName(userName).getUserId());
+
             Stage stage;
             Parent scene;
 
