@@ -13,10 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Contact;
-import model.Customer;
-import model.Sanitization;
-import model.User;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -94,17 +91,48 @@ public class AddAppointmentController implements Initializable {
         String title = titleText.getText();
         String description = descriptionText.getText();
         String location = locationText.getText();
-        String type = typeCombo.getSelectionModel().getSelectedItem();
-        LocalDateTime startDateTime = LocalDateTime.of(startDateChooser.getValue(), startTimeCombo.getSelectionModel().getSelectedItem());
-        LocalDateTime endDateTime = LocalDateTime.of(endDateChooser.getValue(), endTimeCombo.getSelectionModel().getSelectedItem());
-        int customerId = customerIdCombo.getSelectionModel().getSelectedItem().getCustomerId();
-        int userId = userIdCombo.getSelectionModel().getSelectedItem().getUserId();
-        int contactId = contactCombo.getSelectionModel().getSelectedItem().getContactId();
+        String type = "";
+        LocalDateTime startDateTime = null;
+        LocalDateTime endDateTime = null;
+        int customerId = 0;
+        int userId = 0;
+        int contactId = 0;
 
         Sanitization.sanitizeString(13, title);
         Sanitization.sanitizeString(14, description);
         Sanitization.sanitizeString(15, location);
-        Sanitization.checkBusinessHours(startDateTime, endDateTime);
+
+        try {
+            type = typeCombo.getSelectionModel().getSelectedItem();
+            startDateTime = LocalDateTime.of(startDateChooser.getValue(), startTimeCombo.getSelectionModel().getSelectedItem());
+            endDateTime = LocalDateTime.of(endDateChooser.getValue(), endTimeCombo.getSelectionModel().getSelectedItem());
+            customerId = customerIdCombo.getSelectionModel().getSelectedItem().getCustomerId();
+            userId = userIdCombo.getSelectionModel().getSelectedItem().getUserId();
+            contactId = contactCombo.getSelectionModel().getSelectedItem().getContactId();
+
+            Sanitization.checkBusinessHours(startDateTime, endDateTime);
+        } catch (NullPointerException e) {
+            Sanitization.setIsValidFalse();
+            Sanitization.displayAlert(18);
+        }
+
+        if (!(Sanitization.getIsValid())) {
+            return;
+        }
+
+        Appointment appointment = new Appointment(
+                appointmentId,
+                title,
+                description,
+                location,
+                type,
+                startDateTime,
+                endDateTime,
+                customerId,
+                userId,
+                contactId);
+        // AppointmentQueries.add
+        // Appointment.add
     }
 
     @FXML

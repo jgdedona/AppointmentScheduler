@@ -205,6 +205,11 @@ public class Sanitization {
                 alert.setContentText("Start time must be before end time");
                 alert.showAndWait();
                 break;
+            case 18:
+                alert.setHeaderText("Null combo box or date picker selections");
+                alert.setContentText("All combo boxes and date pickers must contain selected data");
+                alert.showAndWait();
+                break;
         }
     }
 }
