@@ -160,4 +160,22 @@ public class Appointment {
         }
     }
 
+    public static void updateAppointment(Appointment appointment) {
+        for (int i = 0; i < allAppointments.size(); i++) {
+            if (allAppointments.get(i).getAppointmentId() == appointment.getAppointmentId()) {
+                allAppointments.set(i, appointment);
+                return;
+            }
+        }
+    }
+
+    public static boolean customerHasAppointments(int customerId) {
+        for (Appointment appointment : allAppointments) {
+            if (appointment.getCustomerId() == customerId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

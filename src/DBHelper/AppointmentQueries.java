@@ -27,7 +27,7 @@ public class AppointmentQueries {
                         resultSet.getString(4),
                         resultSet.getString(5),
                         resultSet.getTimestamp(6).toLocalDateTime(),
-                        resultSet.getTimestamp(6).toLocalDateTime(),
+                        resultSet.getTimestamp(7).toLocalDateTime(),
                         resultSet.getInt(12),
                         resultSet.getInt(13),
                         resultSet.getInt(14)));
@@ -71,6 +71,58 @@ public class AppointmentQueries {
             preparedStatement.setInt(9, appointment.getContactId());
 
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void updateAppointment(Appointment appointment) {
+        String queryString = "UPDATE appointments " +
+        "SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? " +
+        "WHERE Appointment_ID = ?";
+
+        try {
+            DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+            preparedStatement.setString(1, appointment.getTitle());
+            preparedStatement.setString(2, appointment.getDescription());
+            preparedStatement.setString(3, appointment.getLocation());
+            preparedStatement.setString(4, appointment.getType());
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(appointment.getStartDateTime()));
+            preparedStatement.setTimestamp(6, Timestamp.valueOf(appointment.getEndDateTime()));
+            preparedStatement.setInt(7, appointment.getCustomerId());
+            preparedStatement.setInt(8, appointment.getUserId());
+            preparedStatement.setInt(9, appointment.getContactId());
+            preparedStatement.setInt(10, appointment.getAppointmentId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void addInsertedAppointment() {
+        String queryString = "SELECT * FROM appointments ORDER BY Appointment_ID DESC LIMIT 1";
+
+        try {
+            DBQuery.setPreparedStatement(JDBC.getConnection(), queryString);
+            PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            Appointment.addAppointment(new Appointment(
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getTimestamp(6).toLocalDateTime(),
+                    resultSet.getTimestamp(6).toLocalDateTime(),
+                    resultSet.getInt(12),
+                    resultSet.getInt(13),
+                    resultSet.getInt(14)));
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }

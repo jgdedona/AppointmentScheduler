@@ -1,5 +1,6 @@
 package controller;
 
+import DBHelper.AppointmentQueries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -84,7 +85,7 @@ public class AddAppointmentController implements Initializable {
     private ComboBox<User> userIdCombo;
 
     @FXML
-    void addAppointment(ActionEvent event) {
+    void addAppointment(ActionEvent event) throws IOException {
         Sanitization.setIsValidTrue();
 
         int appointmentId = 0; // Placeholder. Database will provide the appropriate appointmentId.
@@ -131,8 +132,16 @@ public class AddAppointmentController implements Initializable {
                 customerId,
                 userId,
                 contactId);
-        // AppointmentQueries.add
-        // Appointment.add
+        AppointmentQueries.addAppointment(appointment);
+        AppointmentQueries.addInsertedAppointment();
+
+        Stage stage;
+        Parent scene;
+
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML

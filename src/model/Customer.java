@@ -108,7 +108,7 @@ public class Customer {
 
     /** Searches for a customer in allCustomers by customerId.
      * @param customerId Customer ID to be searched
-     * @return filteredCustomerList if not empty, else allCustomers */
+     * @return customer if not empty, else null */
     public static Customer lookupCustomer(int customerId) {
         for (Customer customer : allCustomers) {
             if (customer.getCustomerId() == customerId) {

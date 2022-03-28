@@ -9,7 +9,7 @@ public class User {
     private String userName;
     private String password;
 
-    private static ObservableList allUsers = FXCollections.observableArrayList();
+    private static ObservableList<User> allUsers = FXCollections.observableArrayList();
 
     /** User constructor */
     public User(int userId, String userName, String password) {
@@ -58,6 +58,15 @@ public class User {
      * @param newUser */
     public static void addUser(User newUser) {
         allUsers.add(newUser);
+    }
+
+    public static User findUserByUserId(int userId) {
+        for (User user : allUsers) {
+            if (user.getUserId() == userId) {
+                return user;
+            }
+        }
+        return null;
     }
 
     @Override

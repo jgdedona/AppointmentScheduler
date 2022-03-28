@@ -1,11 +1,12 @@
 package model;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
 import java.time.*;
 import java.util.Locale;
+import java.util.Optional;
 
 public class Sanitization {
 
@@ -111,6 +112,42 @@ public class Sanitization {
             displayAlert(16);
             setIsValidFalse();
         }
+
+        if (startDate.isBefore(LocalDate.now()) && startDate.equals(endDate)) {
+            displayAlert(19);
+            setIsValidFalse();
+        }
+    }
+
+    public static boolean deletionConfirmation() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Are you sure?");
+        alert.setContentText("All deletions are final. Please confirm that you would like to proceed.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void customerDeletionSuccessful(String objectDeleted) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Notice");
+        alert.setHeaderText("Deletion Successful");
+        alert.setContentText(objectDeleted + " has been deleted");
+        alert.showAndWait();
+    }
+
+    public static void appointmentDeletionSuccessful(int appointmentId, String objectDeleted) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Notice");
+        alert.setHeaderText("Deletion Successful");
+        alert.setContentText("Appointment " + String.valueOf(appointmentId) + ": " + objectDeleted + " has been deleted");
+        alert.showAndWait();
     }
 
     /** Displays various alerts depending on the case called.
@@ -208,6 +245,16 @@ public class Sanitization {
             case 18:
                 alert.setHeaderText("Null combo box or date picker selections");
                 alert.setContentText("All combo boxes and date pickers must contain selected data");
+                alert.showAndWait();
+                break;
+            case 19:
+                alert.setHeaderText("Invalid date selection");
+                alert.setContentText("The appointment date must be on or after the current date");
+                alert.showAndWait();
+                break;
+            case 20:
+                alert.setHeaderText("Cannot delete customers with scheduled appointments");
+                alert.setContentText("You must delete all appointments assigned to the customer before deleting the customer");
                 alert.showAndWait();
                 break;
         }

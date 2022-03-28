@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
+import model.Sanitization;
 
 import java.io.IOException;
 import java.net.URL;
@@ -91,8 +92,12 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void deleteAppointment(ActionEvent event) {
-        AppointmentQueries.removeAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
-        Appointment.removeAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
+        if (Sanitization.deletionConfirmation()) {
+            AppointmentQueries.removeAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
+            Sanitization.appointmentDeletionSuccessful(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentId(),
+                    appointmentsTableView.getSelectionModel().getSelectedItem().getType());
+            Appointment.removeAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
+        }
     }
 
     @FXML
@@ -155,10 +160,21 @@ public class AppointmentsController implements Initializable {
     @FXML
     void displayModifyAppointment(ActionEvent event) throws IOException {
         Stage stage;
-        Parent scene;
 
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/ModifyAppointment.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/ModifyAppointment.fxml"));
+        loader.load();
+
+        ModifyAppointmentController MAController = loader.getController();
+        try {
+            MAController.sendAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
+        } catch (NullPointerException e) {
+            System.out.println("Error: " + e.getMessage());
+            return;
+        }
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.show();
     }

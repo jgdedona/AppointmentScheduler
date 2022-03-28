@@ -1,6 +1,7 @@
 package controller;
 
 import DBHelper.CustomerQueries;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,13 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Customer;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +21,11 @@ import java.util.ResourceBundle;
 
 public class CustomersController implements Initializable {
 
+    /**
+     * The intialize method sets the starting state for the scene.
+     * The lambda found in this method is utilized to convert the divisionId int to a divisionName string.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         customersTableView.setItems(Customer.getAllCustomers());
@@ -31,7 +34,8 @@ public class CustomersController implements Initializable {
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         phoneCol.setCellValueFactory((new PropertyValueFactory<>("phone")));
         postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-        divisionCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+        divisionCol.setCellValueFactory(cellData ->
+                new SimpleStringProperty(Division.findDivisionId(cellData.getValue().getDivisionId()).getDivisionName()));
     }
 
     private void displayScene(ActionEvent event, String location) throws IOException {
@@ -57,7 +61,7 @@ public class CustomersController implements Initializable {
     private TableView<Customer> customersTableView;
 
     @FXML
-    private TableColumn<Customer, Integer> divisionCol;
+    private TableColumn<Customer, String> divisionCol;
 
     @FXML
     private TableColumn<Customer, String> phoneCol;
@@ -70,8 +74,16 @@ public class CustomersController implements Initializable {
 
     @FXML
     void deleteCustomer(ActionEvent event) {
-        CustomerQueries.removeCustomer(customersTableView.getSelectionModel().getSelectedItem());
-        Customer.removeCustomer(customersTableView.getSelectionModel().getSelectedItem());
+        if (Appointment.customerHasAppointments(customersTableView.getSelectionModel().getSelectedItem().getCustomerId())) {
+            Sanitization.displayAlert(20);
+            return;
+        }
+
+        if (Sanitization.deletionConfirmation()) {
+            CustomerQueries.removeCustomer(customersTableView.getSelectionModel().getSelectedItem());
+            Sanitization.customerDeletionSuccessful(customersTableView.getSelectionModel().getSelectedItem().getCustomerName());
+            Customer.removeCustomer(customersTableView.getSelectionModel().getSelectedItem());
+        }
     }
 
     @FXML

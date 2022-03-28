@@ -60,4 +60,13 @@ public class Contact {
     public String toString() {
         return contactName;
     }
+
+    public static Contact findContactById(int contactId) {
+        for (Contact contact : allContacts) {
+            if (contact.getContactId() == contactId) {
+                return contact;
+            }
+        }
+        return null;
+    }
 }
