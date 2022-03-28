@@ -150,10 +150,36 @@ public class Sanitization {
         alert.showAndWait();
     }
 
-    public static void appointmentNotice() {
+    public static void appointmentNotice(int index, Appointment appointment) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Appointment Notice");
 
+        switch (index) {
+            case 1:
+                alert.setHeaderText("Appointment begins within 15 minutes");
+                alert.setContentText("Appointment ID: " + appointment.getAppointmentId()
+                        + "\nDate: " + appointment.getStartDateTime().toLocalDate()
+                        + "\nStart Time: " + appointment.getStartDateTime().toLocalTime() + " " + ZoneId.systemDefault());
+                alert.showAndWait();
+                break;
+            case 2:
+                alert.setHeaderText("Le rendez-vous commence dans 15 minutes");
+                alert.setContentText("ID de rendez-vous: " + appointment.getAppointmentId()
+                        + "\nDate: " + appointment.getStartDateTime().toLocalDate()
+                        + "\nHeure de début: " + appointment.getStartDateTime().toLocalTime() + " " + ZoneId.systemDefault());
+                alert.showAndWait();
+                break;
+            case 3:
+                alert.setHeaderText("No appointments within the next 15 minutes");
+                alert.setContentText("There are no upcoming appointments");
+                alert.showAndWait();
+                break;
+            case 4:
+                alert.setHeaderText("Aucun rendez-vous dans les 15 prochaines minutes");
+                alert.setContentText("Il n'y a pas de rendez-vous à venir");
+                alert.showAndWait();
+                break;
+        }
     }
 
     /** Displays various alerts depending on the case called.

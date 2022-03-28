@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.Locale;
 
 /** The Appointment class models a customer based on the appointment table found in the database. */
 public class Appointment {
@@ -183,18 +184,15 @@ public class Appointment {
     public static void userHasAppointmentWithinFifteen(int userId) {
         boolean appointmentFound = false;
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Appointment Notice");
-
         for (Appointment appointment : allAppointments) {
             if (appointment.getUserId() == userId
                     && appointment.getStartDateTime().isAfter(LocalDateTime.now())
                     && appointment.getStartDateTime().isBefore(LocalDateTime.now().plusMinutes(15))) {
-                alert.setHeaderText("Appointment begins within 15 minutes");
-                alert.setContentText("Appointment ID: " + appointment.getAppointmentId()
-                        + "\nDate: " + appointment.getStartDateTime().toLocalDate()
-                        + "\nStart Time " + appointment.getStartDateTime().toLocalTime() + " " + ZoneId.systemDefault());
-                alert.showAndWait();
+                if (Locale.getDefault().getLanguage() == "fr") {
+                    Sanitization.appointmentNotice(2, appointment);
+                } else {
+                    Sanitization.appointmentNotice(1, appointment);
+                }
                 appointmentFound = true;
             }
         }
@@ -202,9 +200,11 @@ public class Appointment {
         if (appointmentFound == true) {
             return;
         } else {
-            alert.setHeaderText("No appointments within the next 15 minutes");
-            alert.setContentText("There are no upcoming appointments");
-            alert.showAndWait();
+            if (Locale.getDefault().getLanguage() == "fr") {
+                Sanitization.appointmentNotice(4, null);
+            } else {
+                Sanitization.appointmentNotice(3, null);
+            }
         }
     }
 
