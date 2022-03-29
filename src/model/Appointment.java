@@ -208,6 +208,19 @@ public class Appointment {
         return false;
     }
 
+    /** Checks if a contact has any assigned appointments and adds those appointments to an ObservableList.
+     * @param contactId customerId to be checked.
+     * @return appointmentsByCustomer observable lists with all customer appointments. */
+    public static ObservableList<Appointment> appointmentsByContact(int contactId) {
+        ObservableList<Appointment> contactAppointments = FXCollections.observableArrayList();
+        for (Appointment appointment : allAppointments) {
+            if (appointment.getContactId() == contactId) {
+                contactAppointments.add(appointment);
+            }
+        }
+        return contactAppointments;
+    }
+
     /** Checks if a user has an appointment starting within fifteen minutes of the current time.
      * @param userId userId to be checked. */
     public static void userHasAppointmentWithinFifteen(int userId) {

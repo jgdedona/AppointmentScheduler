@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="591.0" prefWidth="913.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentsController">
    <children>
-      <VBox prefHeight="607.0" prefWidth="913.0">
+      <VBox alignment="CENTER" prefHeight="607.0" prefWidth="950.0">
          <children>
             <HBox alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="913.0">
                <children>
@@ -69,7 +69,7 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="450.0" prefWidth="913.0">
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="450.0" prefWidth="913.0">
                <children>
                   <TableView fx:id="appointmentsTableView" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="913.0">
                     <columns>
