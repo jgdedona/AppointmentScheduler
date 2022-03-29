@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import model.Appointment;
 import model.Contact;
 import model.Customer;
+import model.Sanitization;
 
 import java.io.IOException;
 import java.net.URL;
@@ -93,18 +94,31 @@ public class ReportsController implements Initializable {
         stage.show();
     }
 
+    /** Displays an alert that contains a count of appointments of assigned to a specific customer ID.
+     * Customer ID is supplied through the customerIdCombo combo box. */
     @FXML
-    void generateCustomerIdReport(ActionEvent event) {
-
+    void generateCustomerIdReport() {
+        try {
+            Appointment.appointmentByCustomerIdReport(customerIdCombo.getSelectionModel().getSelectedItem().getCustomerId());
+        } catch (NullPointerException e) {
+            Sanitization.displayAlert(22);
+        }
     }
 
+    /** Displays an alert that contains a count of appointments of a certain type within a certain month.
+     * Type and month input is supplied through the type and month combo boxes. */
     @FXML
-    void generateTypeOrMonthReport(ActionEvent event) {
-
+    void generateTypeOrMonthReport() {
+        if (typeCombo.getSelectionModel().getSelectedItem() == null || monthCombo.getSelectionModel().getSelectedItem() == null) {
+            Sanitization.displayAlert(21);
+        } else {
+            Appointment.appointmentByTypeAndMonthReport(typeCombo.getSelectionModel().getSelectedItem(), monthCombo.getSelectionModel().getSelectedItem());
+        }
     }
 
+    /** Populates the contactScheduleTableView based on the contactNameCombo combo box selection. */
     @FXML
-    void populateTableView(ActionEvent event) {
+    void populateTableView() {
         contactScheduleTableView.setItems(Appointment.appointmentsByContact(contactNameCombo.getSelectionModel().getSelectedItem().getContactId()));
         apptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));

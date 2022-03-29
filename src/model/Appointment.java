@@ -2,6 +2,7 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -248,6 +249,42 @@ public class Appointment {
                 Sanitization.appointmentNotice(3, null);
             }
         }
+    }
+
+    /** Counts the number of appointments of a specified type and in a specified month and displays an alert with the result.
+     * @param month Month to be checked.
+     * @param type Type to be checked. */
+    public static void appointmentByTypeAndMonthReport(String type, String month) {
+        int count = 0;
+
+        for (Appointment appointment : allAppointments) {
+            if (appointment.getType().equals(type) && appointment.getStartDateTime().getMonth().toString().equalsIgnoreCase(month)) {
+                count++;
+            }
+        }
+        Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        alert.setTitle("Report");
+        alert.setHeaderText("Number of " + type + " Appointments in " + month);
+        alert.setContentText(String.valueOf(count));
+        alert.showAndWait();
+    }
+
+    /** Counts the number of appointments assigned to a specified customerId.
+     * @param customerId The customerId to be used for matching. */
+    public static void appointmentByCustomerIdReport(int customerId) {
+        int count = 0;
+
+        for (Appointment appointment : allAppointments) {
+            if (appointment.getCustomerId() == customerId) {
+                count++;
+            }
+        }
+        Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        alert.setTitle("Report");
+        alert.setHeaderText("Number of Appointments for customer " + customerId + " : "
+                + Customer.lookupCustomer(customerId).getCustomerName());
+        alert.setContentText(String.valueOf(count));
+        alert.showAndWait();
     }
 
 }

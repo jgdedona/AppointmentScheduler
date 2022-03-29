@@ -305,6 +305,16 @@ public class Sanitization {
                 alert.setContentText("You must delete all appointments assigned to the customer before deleting the customer");
                 alert.showAndWait();
                 break;
+            case 21:
+                alert.setHeaderText("No Type or Month Selected");
+                alert.setContentText("You must select both a type and a month");
+                alert.showAndWait();
+                break;
+            case 22:
+                alert.setHeaderText("No Customer ID Selected");
+                alert.setContentText("You must select a Customer ID");
+                alert.showAndWait();
+                break;
         }
     }
 }
