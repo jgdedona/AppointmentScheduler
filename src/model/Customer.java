@@ -1,6 +1,5 @@
 package model;
 
-import DBHelper.CustomerQueries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -25,54 +24,67 @@ public class Customer {
         this.divisionId = divisionId;
     }
 
+    /** Gets customerId attribute. */
     public int getCustomerId() {
         return customerId;
     }
 
+    /** Sets customerId attribute. */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
+    /** Gets customerName attribute. */
     public String getCustomerName() {
         return customerName;
     }
 
+    /** Sets customerName attribute. */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
 
+    /** Gets address attribute. */
     public String getAddress() {
         return address;
     }
 
+    /** Sets address attribute. */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /** Gets postalCode attribute. */
     public String getPostalCode() {
         return postalCode;
     }
 
+    /** Sets postalCode attribute. */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
+    /** Gets phone attribute. */
     public String getPhone() {
         return phone;
     }
 
+    /** Sets phone attribute. */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    /** Gets divisionId attribute. */
     public int getDivisionId() {
         return divisionId;
     }
 
+    /** Sets divisionId attribute. */
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
     }
 
+    /** Gets static allCustomers ObservableList attribute. */
     public static ObservableList<Customer> getAllCustomers() {
         return allCustomers;
     }
@@ -118,6 +130,8 @@ public class Customer {
         return null;
     }
 
+    /** Updates a Customer object in the allCustomers ObservableList.
+     * @param customer Customer object to be updated.*/
     public static void updateCustomer(Customer customer) {
         for (int i = 0; i < allCustomers.size(); i++) {
             if (allCustomers.get(i).getCustomerId() == customer.getCustomerId()) {
@@ -127,6 +141,7 @@ public class Customer {
         }
     }
 
+    /** Returns a string representation of the customerId when a Customer object is printed. */
     @Override
     public String toString() {
         return String.valueOf(customerId);

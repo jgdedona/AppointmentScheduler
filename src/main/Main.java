@@ -16,7 +16,8 @@ import java.util.Locale;
 
 public class Main extends Application {
 
-
+    /** Loads initial scene.
+     * @param primaryStage Initial scene. */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
@@ -24,7 +25,6 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
     }
-
 
     public static void main(String[] args) throws SQLException {
         JDBC.makeConnection();

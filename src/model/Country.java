@@ -10,27 +10,33 @@ public class Country {
 
     private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
 
+    /** Constructor for Country class. */
     public Country(int countryId, String country) {
         this.countryId = countryId;
         this.country = country;
     }
 
+    /** Gets countryId attribute. */
     public int getCountryId() {
         return countryId;
     }
 
+    /** Sets countryId attribute. */
     public void setCountryId(int countryId) {
         this.countryId = countryId;
     }
 
+    /** Gets country attribute. */
     public String getCountry() {
         return country;
     }
 
+    /** Sets country attribute. */
     public void setCountry(String country) {
         this.country = country;
     }
 
+    /** Gets static allCountries ObservableList attribute. */
     public static ObservableList<Country> getAllCountries() {
         return allCountries;
     }
@@ -59,6 +65,7 @@ public class Country {
         return null;
     }
 
+    /** Returns country attribute when Country object is printed. */
     @Override
     public String toString() {
         return (this.getCountry());

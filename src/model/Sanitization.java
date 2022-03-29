@@ -8,10 +8,12 @@ import java.time.*;
 import java.util.Locale;
 import java.util.Optional;
 
+/** Contains static methods and attributes responsible for sanitizing input and displaying alerts. */
 public class Sanitization {
 
     private static boolean isValid = true;
 
+    /** Gets static isValid attribute. */
     public static boolean getIsValid() {
         return isValid;
     }
@@ -78,6 +80,9 @@ public class Sanitization {
         }
     }
 
+    /** Converts appointment time to EST and checks if the appointment is valid and within business hours.
+     * @param startLdt The appointment start time.
+     * @param endLdt The appointment end time. */
     public static void checkBusinessHours(LocalDateTime startLdt, LocalDateTime endLdt) {
         ZonedDateTime startZdt = startLdt.atZone(ZoneId.systemDefault());
         ZonedDateTime startTargetZdt = startZdt.withZoneSameInstant(ZoneId.of("America/New_York"));
@@ -119,6 +124,8 @@ public class Sanitization {
         }
     }
 
+    /** Displays a confirmation alert on deletion of objects.
+     * @return true if OK is pressed, else false. */
     public static boolean deletionConfirmation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -134,6 +141,8 @@ public class Sanitization {
         }
     }
 
+    /** Displays a customized message upon Customer object deletion.
+     * @param objectDeleted Name of deleted object. */
     public static void customerDeletionSuccessful(String objectDeleted) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Notice");
@@ -142,6 +151,9 @@ public class Sanitization {
         alert.showAndWait();
     }
 
+    /** Displays a customized message upon Appointment object deletion.
+     * @param appointmentId ID of deleted appointment.
+     * @param objectDeleted Name of deleted appointment. */
     public static void appointmentDeletionSuccessful(int appointmentId, String objectDeleted) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Notice");
@@ -150,6 +162,10 @@ public class Sanitization {
         alert.showAndWait();
     }
 
+    /** Displays an alert stating an appointment starts within 15 minutes OR there are no appointments within 15 minutes.
+     * Can display the alerts in both English and French.
+     * @param index Determines which alert to display.
+     * @param appointment Appointment object used to customize alert. */
     public static void appointmentNotice(int index, Appointment appointment) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Appointment Notice");

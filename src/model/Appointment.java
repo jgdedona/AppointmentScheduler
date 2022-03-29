@@ -2,12 +2,8 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.Locale;
 
 /** The Appointment class models a customer based on the appointment table found in the database. */
@@ -23,6 +19,7 @@ public class Appointment {
     private int userId;
     private int contactId;
 
+    /** Constructor for Appointment class. */
     public Appointment(int appointmentId, String title, String description, String location, String type, LocalDateTime startDateTime, LocalDateTime endDateTime, int customerId, int userId, int contactId) {
         this.appointmentId = appointmentId;
         this.title = title;
@@ -42,86 +39,107 @@ public class Appointment {
         return allAppointments;
     }
 
+    /** Sets allAppointments ObservableList. */
     public static void setAllAppointments(ObservableList<Appointment> allAppointments) {
         Appointment.allAppointments = allAppointments;
     }
 
+    /** Gets startDateTime attribute. */
     public LocalDateTime getStartDateTime() {
         return startDateTime;
     }
 
+    /** Sets startDateTime attribute. */
     public void setStartDateTime(LocalDateTime startDateTime) {
         this.startDateTime = startDateTime;
     }
 
+    /** Gets endDateTime attribute. */
     public LocalDateTime getEndDateTime() {
         return endDateTime;
     }
 
+    /** Sets endDateTime attribute. */
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
     }
 
+    /** Gets appointmentId attribute. */
     public int getAppointmentId() {
         return appointmentId;
     }
 
+    /** Sets appointmentId attribute. */
     public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
     }
 
+    /** Gets title attribute. */
     public String getTitle() {
         return title;
     }
 
+    /** Sets title attribute. */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /** Gets description attribute. */
     public String getDescription() {
         return description;
     }
 
+    /** Sets description attribute. */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /** Gets location attribute. */
     public String getLocation() {
         return location;
     }
 
+    /** Sets location attribute. */
     public void setLocation(String location) {
         this.location = location;
     }
 
+    /** Gets type attribute. */
     public String getType() {
         return type;
     }
 
+    /** Sets type attribute. */
     public void setType(String type) {
         this.type = type;
     }
 
+    /** Gets customerId attribute. */
     public int getCustomerId() {
         return customerId;
     }
 
+    /** Sets customerId attribute. */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
+    /** Gets userId attribute. */
     public int getUserId() {
         return userId;
     }
 
+    /** Sets userId attribute. */
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
+    /** Gets contactId attribute. */
     public int getContactId() {
         return contactId;
     }
 
+    /** Sets contactId attribute. */
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
@@ -149,6 +167,10 @@ public class Appointment {
         return null;
     }
 
+    /** Searches for appointment in allAppointments by title attribute.
+     * @param title Title to be searched for.
+     * @param appointments ObservableList to be return if no results are found.
+     * @return filteredAppointments with appointments matching the title OR provided ObservableList if no appointments found. */
     public static ObservableList<Appointment> lookupAppointment(String title, ObservableList<Appointment> appointments) {
         ObservableList<Appointment> filteredAppointments = FXCollections.observableArrayList();
         for (Appointment appointment : appointments) {
@@ -163,6 +185,8 @@ public class Appointment {
         }
     }
 
+    /** Updates an appointment in the allAppointments ObservableList.
+     * @param appointment Appointment object to be updated. */
     public static void updateAppointment(Appointment appointment) {
         for (int i = 0; i < allAppointments.size(); i++) {
             if (allAppointments.get(i).getAppointmentId() == appointment.getAppointmentId()) {
@@ -172,6 +196,9 @@ public class Appointment {
         }
     }
 
+    /** Checks if a customer has any assigned appointments.
+     * @param customerId customerId to be checked.
+     * @return True if appointment found, else false. */
     public static boolean customerHasAppointments(int customerId) {
         for (Appointment appointment : allAppointments) {
             if (appointment.getCustomerId() == customerId) {
@@ -181,6 +208,8 @@ public class Appointment {
         return false;
     }
 
+    /** Checks if a user has an appointment starting within fifteen minutes of the current time.
+     * @param userId userId to be checked. */
     public static void userHasAppointmentWithinFifteen(int userId) {
         boolean appointmentFound = false;
 

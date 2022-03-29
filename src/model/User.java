@@ -18,28 +18,24 @@ public class User {
         this.password = password;
     }
 
+    /** Gets userId attribute. */
     public int getUserId() {
         return userId;
     }
 
+    /** Sets userId attribute. */
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
+    /** Gets userName attribute. */
     public String getUserName() {
         return userName;
     }
 
+    /** Sets userName attribute. */
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     /** Gets the static ObservableList allUsers
@@ -69,6 +65,9 @@ public class User {
         return null;
     }
 
+    /** Searches for a user in allUsers by a provided userName.
+     * @param userName userName to be searched.
+     * @return User object if match found, else null. */
     public static User findUserByUserName(String userName) {
         for (User user : allUsers) {
             if (user.getUserName().equals(userName)) {
@@ -78,6 +77,7 @@ public class User {
         return null;
     }
 
+    /** Returns string representation of userId when User object is printed. */
     @Override
     public String toString() {
         return String.valueOf(userId);
