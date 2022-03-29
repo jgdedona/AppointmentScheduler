@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Handles all queries against users table in the database. */
 public class UsersQueries {
 
     /** Checks supplied credentials against those stored in the database.
@@ -31,6 +32,8 @@ public class UsersQueries {
         }
     }
 
+    /** Called in Main to populate allUsers ObservableList.
+     * Does NOT populate the passwords. */
     public static void populateUsers() {
         String queryString = "SELECT * FROM users";
 

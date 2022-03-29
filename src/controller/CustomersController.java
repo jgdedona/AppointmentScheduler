@@ -38,6 +38,9 @@ public class CustomersController implements Initializable {
                 new SimpleStringProperty(Division.findDivisionId(cellData.getValue().getDivisionId()).getDivisionName()));
     }
 
+    /** Called to display a new scene.
+     * @param event Used to capture button click and display new scene.
+     * @param location The location of the new scene. */
     private void displayScene(ActionEvent event, String location) throws IOException {
         Stage stage;
         Parent scene;
@@ -72,8 +75,9 @@ public class CustomersController implements Initializable {
     @FXML
     private TextField custSearchText;
 
+    /** Deletes a customer from the database and allCustomers ObservableList IF the customer has no assigned appointments.*/
     @FXML
-    void deleteCustomer(ActionEvent event) {
+    void deleteCustomer() {
         if (Appointment.customerHasAppointments(customersTableView.getSelectionModel().getSelectedItem().getCustomerId())) {
             Sanitization.displayAlert(20);
             return;
@@ -86,16 +90,25 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /** Displays AddCustomer scene.
+     * @param event Used to capture button click and change scene.
+     * @throws IOException If scene not found */
     @FXML
     void displayAddCustomer(ActionEvent event) throws IOException {
         displayScene(event, "/view/AddCustomer.fxml");
     }
 
+    /** Displays MainMenu scene.
+     * @param event Used to capture button click and change scene.
+     * @throws IOException If scene not found */
     @FXML
     void displayMainMenu(ActionEvent event) throws IOException {
         displayScene(event, "/view/MainMenu.fxml");
     }
 
+    /** Displays ModifyCustomer scene and sends data from selected Customer object to the scene.
+     * @param event Used to capture button click and change scene.
+     * @throws IOException If scene not found */
     @FXML
     void displayModifyCustomer(ActionEvent event) throws IOException {
         Stage stage;
@@ -118,10 +131,9 @@ public class CustomersController implements Initializable {
         stage.show();
     }
 
-    /** Implements search functionality for customersTableView.
-     * @param event */
+    /** Implements search functionality for customersTableView. */
     @FXML
-    void searchOrFilterCustomers(ActionEvent event) {
+    void searchOrFilterCustomers() {
         ObservableList<Customer> filteredList = FXCollections.observableArrayList();
         if (custSearchText != null) {
             try {

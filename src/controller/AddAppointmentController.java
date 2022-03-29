@@ -18,17 +18,21 @@ import model.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
+/** Provides functionality to the AddAppointment view. */
 public class AddAppointmentController implements Initializable {
 
     ObservableList<String> typeList = FXCollections.observableArrayList();
     ObservableList<LocalTime> timeList = FXCollections.observableArrayList();
 
+    /**
+     * The initialize method sets the starting state for the scene.
+     * All combo boxes are populated through the initialize method.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         typeList.addAll("Introduction", "Briefing", "Update", "Debrief", "Consultation");
@@ -84,6 +88,9 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private ComboBox<User> userIdCombo;
 
+    /** Adds an appointment to the database and allAppointments ObservableList utilizing provided input.
+     * @param event Utilized to change views upon completion.
+     * @throws IOException If scene not found. */
     @FXML
     void addAppointment(ActionEvent event) throws IOException {
         Sanitization.setIsValidTrue();
@@ -144,6 +151,9 @@ public class AddAppointmentController implements Initializable {
         stage.show();
     }
 
+    /** Displays Appointment view upon button click.
+     * @param event Utilized to change views.
+     * @throws IOException If scene not found. */
     @FXML
     void displayAppointmentView(ActionEvent event) throws IOException {
         Stage stage;

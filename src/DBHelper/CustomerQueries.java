@@ -1,6 +1,5 @@
 package DBHelper;
 
-import javafx.collections.ObservableList;
 import model.Customer;
 
 import java.sql.PreparedStatement;
@@ -10,6 +9,7 @@ import java.sql.SQLException;
 /** This class contains static methods responsible for querying the customers table in the database. */
 public class CustomerQueries {
 
+    /** Called in Main to populate the allCustomers ObservableList. */
     public static void populateCustomers() {
         String queryString = "SELECT * FROM customers";
 
@@ -31,6 +31,8 @@ public class CustomerQueries {
         }
     }
 
+    /** Utilized to remove a customer row from the table.
+     * @param customer Customer object/row to be removed. */
     public static void removeCustomer(Customer customer) {
         String queryString = "DELETE FROM customers WHERE Customer_ID = ?";
 
@@ -45,6 +47,8 @@ public class CustomerQueries {
         }
     }
 
+    /** Adds a customer row to the table.
+     * @param customer Customer object/row to be added. */
     public static void addCustomer(Customer customer) {
         String queryString = "INSERT INTO customers "
         + "(Customer_Name, Address, Postal_Code, Phone, Division_ID) "
@@ -66,6 +70,8 @@ public class CustomerQueries {
         }
     }
 
+    /** Updates a customer row in the table.
+     * @param customer Customer object/row to be updated.*/
     public static void modifyCustomer(Customer customer) {
         String queryString = "UPDATE customers " +
                 "SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? " +
@@ -89,8 +95,7 @@ public class CustomerQueries {
     }
 
     /**
-     * Retrieves the last inserted entry in the customers table and updates the static allCustomers ObservableList.
-     * @throws SQLException*/
+     * Retrieves the last inserted entry in the customers table and updates the static allCustomers ObservableList. */
     public static void addInsertedCustomer() {
         String queryString = "SELECT * FROM customers ORDER BY Customer_ID DESC LIMIT 1";
 

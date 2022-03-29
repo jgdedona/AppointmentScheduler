@@ -27,6 +27,11 @@ public class ModifyAppointmentController implements Initializable {
     ObservableList<String> typeList = FXCollections.observableArrayList();
     ObservableList<LocalTime> timeList = FXCollections.observableArrayList();
 
+    /**
+     * The initialize method sets the starting state for the scene.
+     * All combo boxes are populated.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         typeList.addAll("Introduction", "Briefing", "Update", "Debrief", "Consultation");
@@ -46,6 +51,8 @@ public class ModifyAppointmentController implements Initializable {
         typeCombo.setItems(typeList);
     }
 
+    /** Called in Appointments View to send selected appointment ModifyAppointments view and populate input fields.
+     * @param appointment Appointment object used to populate input fields. */
     public void sendAppointment(Appointment appointment) {
         appointmentIdText.setText(String.valueOf(appointment.getAppointmentId()));
         titleText.setText(appointment.getTitle());
@@ -97,6 +104,9 @@ public class ModifyAppointmentController implements Initializable {
     @FXML
     private ComboBox<User> userIdCombo;
 
+    /** Updates an appointment in the database and allAppointments ObservableList utilizing provided input.
+     * @param event Utilized to change views upon completion.
+     * @throws IOException If scene not found. */
     @FXML
     void addAppointment(ActionEvent event) throws IOException {
         Sanitization.setIsValidTrue();
@@ -157,6 +167,9 @@ public class ModifyAppointmentController implements Initializable {
         stage.show();
     }
 
+    /** Displays Appointment scene.
+     * @param event Utilized to catch button click and change scene.
+     * @throws IOException If scene not found. */
     @FXML
     void displayAppointmentView(ActionEvent event) throws IOException {
         Stage stage;

@@ -1,16 +1,16 @@
 package DBHelper;
 
 import model.Appointment;
-import model.Customer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
+/** Handles all database queries on the appointments table. */
 public class AppointmentQueries {
 
+    /** Called in Main to populate allAppointments ObservableList from the appointments table. */
     public static void populateAppointments() {
         String queryString = "SELECT * FROM appointments";
 
@@ -37,6 +37,8 @@ public class AppointmentQueries {
         }
     }
 
+    /** Removes appointment row from the appointments table.
+     * @param appointment Appointment object to be removed. */
     public static void removeAppointment(Appointment appointment) {
         String queryString = "DELETE FROM appointments WHERE Appointment_ID = ?";
 
@@ -51,6 +53,8 @@ public class AppointmentQueries {
         }
     }
 
+    /** Adds appointment row to the appointments table.
+     * @param appointment Appointment object to be added. */
     public static void addAppointment(Appointment appointment) {
         String queryString = "INSERT INTO appointments "
                 + "(Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) "
@@ -76,6 +80,8 @@ public class AppointmentQueries {
         }
     }
 
+    /** Updates an appointment in the appointment table.
+     * @param appointment Appointment object to be updated. */
     public static void updateAppointment(Appointment appointment) {
         String queryString = "UPDATE appointments " +
         "SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? " +
@@ -102,6 +108,7 @@ public class AppointmentQueries {
         }
     }
 
+    /** Adds a newly inserted appointment to the allAppointments ObservableList. */
     public static void addInsertedAppointment() {
         String queryString = "SELECT * FROM appointments ORDER BY Appointment_ID DESC LIMIT 1";
 

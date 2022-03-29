@@ -21,8 +21,14 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+/** Responsible for implementing the functionality of the Appointments view. */
 public class AppointmentsController implements Initializable {
 
+    /**
+     * The initialize method sets the starting state for the scene.
+     * All TableViews are populated with the initialize method.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appointmentsTableView.setItems(Appointment.getAllAppointments());
@@ -90,8 +96,9 @@ public class AppointmentsController implements Initializable {
     @FXML
     private RadioButton showWeekRBtn;
 
+    /** Deletes an appointment from the database and allAppointments ObservableList. */
     @FXML
-    void deleteAppointment(ActionEvent event) {
+    void deleteAppointment() {
         if (Sanitization.deletionConfirmation()) {
             AppointmentQueries.removeAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
             Sanitization.appointmentDeletionSuccessful(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentId(),
@@ -100,6 +107,9 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /** Displays AddAppointment view on button click.
+     * @param event Used to capture button click and change view.
+     * @throws IOException If scene not found. */
     @FXML
     void displayAddAppointment(ActionEvent event) throws IOException {
         Stage stage;
@@ -111,13 +121,15 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /** Populates TableView with all appointments. */
     @FXML
-    void displayAll(ActionEvent event) {
+    void displayAll() {
         appointmentsTableView.setItems(Appointment.getAllAppointments());
     }
 
+    /** Populates TableView with appointments in the same month as the current month. */
     @FXML
-    void displayByMonth(ActionEvent event) {
+    void displayByMonth() {
         apptByMonth.clear();
         for (Appointment appointment : Appointment.getAllAppointments()) {
             if (appointment.getStartDateTime().getMonth() == LocalDateTime.now().getMonth()) {
@@ -146,6 +158,8 @@ public class AppointmentsController implements Initializable {
         appointmentsTableView.setItems(apptByWeek);
     }
 
+    /** Displays MainMenu view on button click.
+     * @param event Used to capture button click and change view. */
     @FXML
     void displayMainMenu(ActionEvent event) throws IOException {
         Stage stage;
@@ -157,6 +171,8 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /** Displays ModifyAppointment view on button click and sends the selected Appointment object attributes to the view.
+     * @param event Used to capture button click and changes view.*/
     @FXML
     void displayModifyAppointment(ActionEvent event) throws IOException {
         Stage stage;
@@ -179,8 +195,9 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /** Implements search bar functionality. */
     @FXML
-    void searchOrFilterAppointments(ActionEvent event) {
+    void searchOrFilterAppointments() {
         try {
             appointmentsTableView.getSelectionModel().select(Appointment.lookupAppointment(Integer.parseInt(searchText.getText()), appointmentsTableView.getItems()));
         } catch (NumberFormatException e) {

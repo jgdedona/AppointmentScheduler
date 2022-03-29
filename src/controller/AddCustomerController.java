@@ -22,8 +22,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/** Responsible for implementing the functionality of the AddCustomer view. */
 public class AddCustomerController implements Initializable {
 
+    /**
+     * The initialize method sets the starting state for the scene.
+     * The country combo box is populated through the initialize method.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         countryCombo.setItems(Country.getAllCountries());
@@ -50,6 +56,9 @@ public class AddCustomerController implements Initializable {
     @FXML
     private TextField postalCodeText;
 
+    /** Adds a customer to the database and allCustomers ObservableList utilizing provided input.
+     * @param event Utilized to change views upon completion.
+     * @throws IOException If scene not found. */
     @FXML
     void addCustomer(ActionEvent event) throws IOException {
         Sanitization.setIsValidTrue();
@@ -102,6 +111,9 @@ public class AddCustomerController implements Initializable {
 
     }
 
+    /** Displays Customer view on button click.
+     * @param event Used to change view.
+     * @throws IOException If scene not found. */
     @FXML
     void displayCustomerView(ActionEvent event) throws IOException {
         Stage stage;
@@ -113,8 +125,9 @@ public class AddCustomerController implements Initializable {
         stage.show();
     }
 
+    /** Fills the division combo box when the country is selected in the country combo. */
     @FXML
-    void fillDivisionCombo(ActionEvent event) {
+    void fillDivisionCombo() {
         ObservableList<Division> countryDivisions = FXCollections.observableArrayList();
         Country selectedCountry = countryCombo.getSelectionModel().getSelectedItem();
 

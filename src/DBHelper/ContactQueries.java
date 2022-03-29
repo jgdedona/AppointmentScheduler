@@ -1,14 +1,15 @@
 package DBHelper;
 
 import model.Contact;
-import model.Customer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Handles all queries against the contacts table in the database. */
 public class ContactQueries {
 
+    /** Called in Main to populate the allContacts ObservableList. */
     public static void populateContacts() {
         String queryString = "SELECT * FROM contacts";
 

@@ -1,6 +1,5 @@
 package controller;
 
-import DBHelper.DBQuery;
 import DBHelper.UsersQueries;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,14 +21,17 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
 public class LoginController implements Initializable {
 
-    /** Initializes all of the labels to the appropriate language. */
+    /**
+     * The initialize method sets the starting state for the scene.
+     * All labels are set to appropriate language.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userTimeZoneLabel.setText(String.valueOf(TimeZone.getDefault().getID()));
@@ -93,10 +95,9 @@ public class LoginController implements Initializable {
     /** Authenticates the user by checking the credentials supplied in the username and password
      * text fields against those stored in the database.
      * @param event
-     * @throws SQLException from database lookup
      * @throws IOException from setting and loading new scene*/
     @FXML
-    void checkCredentials(ActionEvent event) throws SQLException, IOException {
+    void checkCredentials(ActionEvent event) throws IOException {
         String userName = usernameTextField.getText();
         String password = passwordTextField.getText();
 

@@ -34,7 +34,8 @@ public class Main extends Application {
         DivisionQueries.populateDivisions();
         AppointmentQueries.populateAppointments();
         ContactQueries.populateContacts();
-        Locale.setDefault(new Locale("fr"));
+//        Locale.setDefault(new Locale("fr"));
         launch(args);
+        JDBC.closeConnection();
     }
 }
