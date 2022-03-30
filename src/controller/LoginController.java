@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+/** Provides functionality to the Login view. */
 public class LoginController implements Initializable {
 
     /**

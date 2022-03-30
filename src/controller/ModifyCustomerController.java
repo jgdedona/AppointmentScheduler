@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/** Provides functionality to the ModifyCustomer view. */
 public class ModifyCustomerController implements Initializable {
 
     /**

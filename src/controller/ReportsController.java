@@ -19,11 +19,9 @@ import model.Sanitization;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
 import java.util.ResourceBundle;
 
+/** Provides functionality to the Reports view. */
 public class ReportsController implements Initializable {
 
     ObservableList<String> months = FXCollections.observableArrayList();

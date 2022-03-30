@@ -102,15 +102,15 @@ public class Customer {
     }
 
     /** Searches for a customer in allCustomers by customerName.
+     * A lambda is used to produce the filteredCustomerList without a for loop.
      * @param customerName Customer name to be searched
      * @return filteredCustomerList if not empty, else allCustomers */
     public static ObservableList<Customer> lookupCustomer(String customerName) {
-        ObservableList<Customer> filteredCustomerList = FXCollections.observableArrayList();
-        for (Customer customer : allCustomers) {
-            if (customer.getCustomerName().contains(customerName)) {
-                filteredCustomerList.add(customer);
-            }
-        }
+        ObservableList<Customer> filteredCustomerList = allCustomers.filtered(customer -> {
+            if(customer.getCustomerName().contains(customerName))
+                return true;
+            return false;
+        });
         if (filteredCustomerList.size() > 0) {
             return filteredCustomerList;
         } else {

@@ -19,10 +19,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/** Provides functionality to the Customers view. */
 public class CustomersController implements Initializable {
 
     /**
-     * The intialize method sets the starting state for the scene.
+     * The initialize method sets the starting state for the scene.
      * The lambda found in this method is utilized to convert the divisionId int to a divisionName string.
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.*/

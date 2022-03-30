@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
+/** Provides functionality to the ModifyAppointment view. */
 public class ModifyAppointmentController implements Initializable {
 
     ObservableList<String> typeList = FXCollections.observableArrayList();

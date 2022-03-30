@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
+/** Provides functionality to the MainMenu view. */
 public class MainMenuController implements Initializable {
 
     /**
