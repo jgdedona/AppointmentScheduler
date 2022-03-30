@@ -141,6 +141,28 @@ public class Sanitization {
         }
     }
 
+    /** Checks for any overlapping customer appointments and displays an alert if any overlap is found. */
+    public static boolean customerOverlapCheck(int appointmentId, int customerId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        for (Appointment appointment : Appointment.getAllAppointments()) {
+            if (appointment.getCustomerId() == customerId && appointment.getAppointmentId() != appointmentId) {
+                if ((startDateTime.isBefore(appointment.getStartDateTime()) || startDateTime.isEqual(appointment.getStartDateTime()))
+                        && (endDateTime.isEqual(appointment.getEndDateTime()) || endDateTime.isAfter(appointment.getStartDateTime()))) {
+                    displayAlert(23);
+                    return true;
+                } else if (endDateTime.isAfter(appointment.getStartDateTime()) &&
+                        (endDateTime.isBefore(appointment.getEndDateTime()) || endDateTime.isEqual(appointment.getEndDateTime()))) {
+                    displayAlert(23);
+                    return true;
+                } else if ((startDateTime.isEqual(appointment.getStartDateTime()) || startDateTime.isAfter(appointment.getStartDateTime()))
+                        && startDateTime.isBefore(appointment.getEndDateTime())) {
+                    displayAlert(23);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /** Displays a customized message upon Customer object deletion.
      * @param objectDeleted Name of deleted object. */
     public static void customerDeletionSuccessful(String objectDeleted) {
@@ -313,6 +335,11 @@ public class Sanitization {
             case 22:
                 alert.setHeaderText("No Customer ID Selected");
                 alert.setContentText("You must select a Customer ID");
+                alert.showAndWait();
+                break;
+            case 23:
+                alert.setHeaderText("Invalid Date/Time Selections");
+                alert.setContentText("Selected appointment time overlaps with a previously scheduled appointment");
                 alert.showAndWait();
                 break;
         }

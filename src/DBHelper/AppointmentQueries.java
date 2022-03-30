@@ -126,7 +126,7 @@ public class AppointmentQueries {
                     resultSet.getString(4),
                     resultSet.getString(5),
                     resultSet.getTimestamp(6).toLocalDateTime(),
-                    resultSet.getTimestamp(6).toLocalDateTime(),
+                    resultSet.getTimestamp(7).toLocalDateTime(),
                     resultSet.getInt(12),
                     resultSet.getInt(13),
                     resultSet.getInt(14)));

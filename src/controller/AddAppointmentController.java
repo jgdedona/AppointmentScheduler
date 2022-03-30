@@ -128,6 +128,10 @@ public class AddAppointmentController implements Initializable {
             return;
         }
 
+        if (Sanitization.customerOverlapCheck(appointmentId, customerId, startDateTime, endDateTime)) {
+            return;
+        }
+
         Appointment appointment = new Appointment(
                 appointmentId,
                 title,
