@@ -18,7 +18,7 @@ ____
 
 ## Purpose
 
-This program is a GUI-based appointment scheduling program backed by a MySQL database for persistent storage. The program stores data about customers, users, contacts, and appointments. The program supports the creation of new customers and appointments and the modification of existing customers and appointments. The program also contains functionality to develop specific reports that describe or display stored data.
+This program is a GUI-based appointment scheduling program backed by a PostgreSQL database for persistent storage. The program stores data about customers, users, contacts, and appointments. The program supports the creation of new customers and appointments and the modification of existing customers and appointments. The program also contains functionality to develop specific reports that describe or display stored data.
 ____
 
 ## Running the Program
